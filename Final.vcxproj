@@ -127,12 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\Desktop\MONASTERY OF SOLUTIONS ^_^\Library\Library.cpp" />
-    <ClCompile Include="..\..\..\Desktop\MONASTERY OF SOLUTIONS ^_^\Library\Solutions.cpp" />
     <ClCompile Include="Source.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\Desktop\MONASTERY OF SOLUTIONS ^_^\Library\Solutions^^.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
