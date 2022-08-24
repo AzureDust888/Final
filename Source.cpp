@@ -1,8 +1,9 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-
+using namespace std;
 int main()
-{
+{	
+	cout << "Hello\n";
 	sf::RenderWindow window(sf::VideoMode(800, 400), "This");
 	sf::Event e;
 	while (window.isOpen())
