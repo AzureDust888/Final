@@ -106,10 +106,6 @@ public:
 						rect.left = j * 16 + 16;
 					}
 				}
-
-				if (TileMap[i][j] == 'c') {
-					// TileMap[i][j]=' '; 
-				}
 			}
 
 	}
@@ -187,7 +183,7 @@ int main()
 	RenderWindow window(VideoMode(1000, 300), "SFML works!");
 
 	Texture tileSet;
-	tileSet.loadFromFile("Mario_Tileset.png");
+	tileSet.loadFromFile("texturepack.png");
 
 
 	PLAYER Mario(tileSet);
@@ -249,7 +245,7 @@ int main()
 		}
 
 
-		if (Mario.rect.left > 200) offsetX = Mario.rect.left - 200;           //смещение
+		if (Mario.rect.left > 200) offsetX = Mario.rect.left - 200;          
 
 
 
