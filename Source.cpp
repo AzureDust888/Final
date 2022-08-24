@@ -1,7 +1,19 @@
+#include <iostream>
+#include <SFML/Graphics.hpp>
+
 int main()
 {
-	cout << "3231" << endl;
-	cout << "YA Vol" << endl;
-	cout << "Hi it's me" << endl;
-	cout << "Hi, gays)" << endl;
+	sf::RenderWindow window(sf::VideoMode(800, 400), "This");
+	sf::Event e;
+	while (window.isOpen())
+	{
+		window.clear(sf::Color::Cyan);
+		window.display();
+		while (window.pollEvent(e))
+		{
+			if (e.type == sf::Event::Closed)
+				window.close();
+		}
+	}
+
 }
