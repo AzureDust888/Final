@@ -264,10 +264,10 @@ public:
 
 int main()
 {
-	sf::Music music;
+	/*sf::Music music;
 	if (!music.openFromFile("Clubstep.ogg"))
 		return -1;
-	music.play();
+	music.play();*/
 
 
 	RenderWindow window(VideoMode(1000, 300), "SFML works!");
