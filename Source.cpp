@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <iostream>
+using namespace std;
 
 using namespace sf;
 
@@ -25,7 +27,7 @@ String TileMap[H] = {
 "0                                                                                                                                                    0",
 "0                                                                                                                                                    0",
 "0                                       r                                                                                                            0",
-"0                                    r  r                                                                                                             0",
+"0                                    r  r                                                                                                            0",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
@@ -47,7 +49,7 @@ public:
 	PLAYER(Texture& image)
 	{
 		sprite.setTexture(image);
-		rect = FloatRect(100, 180, 16, 16);
+		rect = FloatRect(100, 180, 32, 32);
 
 		dx = dy = 0.1;
 		currentFrame = 0;
@@ -71,8 +73,8 @@ public:
 		if (currentFrame > 3) currentFrame -= 3;
 
 
-		if (dx > 0) sprite.setTextureRect(IntRect(112 + 31 * int(currentFrame), 144, 16, 16));
-		if (dx < 0) sprite.setTextureRect(IntRect(112 + 31 * int(currentFrame) + 16, 144, -16, 16));
+		/*if (dx > 0) sprite.setTextureRect(IntRect(112 + 31 * int(currentFrame), 144, 16, 16));
+		if (dx < 0) sprite.setTextureRect(IntRect(112 + 31 * int(currentFrame) + 16, 144, -16, 16));*/
 
 
 		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
@@ -106,6 +108,10 @@ public:
 						rect.left = j * 16 + 16;
 					}
 				}
+
+				if (TileMap[i][j] == 'c') {
+					// TileMap[i][j]=' '; 
+				}
 			}
 
 	}
@@ -137,18 +143,6 @@ public:
 
 	void update(float time)
 	{
-		rect.left += dx * time;
-
-		Collision();
-
-
-		currentFrame += time * 0.005;
-		if (currentFrame > 2) currentFrame -= 2;
-
-		sprite.setTextureRect(IntRect(18 * int(currentFrame), 0, 16, 16));
-		if (!life) sprite.setTextureRect(IntRect(58, 0, 16, 16));
-
-
 		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
 
 	}
@@ -183,15 +177,25 @@ int main()
 	RenderWindow window(VideoMode(1000, 300), "SFML works!");
 
 	Texture tileSet;
-	tileSet.loadFromFile("texturepack.png");
+	tileSet.loadFromFile("Name.png");
+
+	Texture Spike;
+	Spike.loadFromFile("spike.png");
+
+	Texture Cube;
+	Cube.loadFromFile("CubeJ.jpg");
+
+	Texture GameOver;
+	GameOver.loadFromFile("Name.png");
 
 
-	PLAYER Mario(tileSet);
+	PLAYER Mario(Cube);
 	ENEMY  enemy;
-	enemy.set(tileSet, 48 * 16, 13 * 16);
+	ENEMY  gameover;
+	enemy.set(Spike, 48 * 16, 13 * 16);
 
-	Sprite END(tileSet);
-	Sprite tile(tileSet);
+
+	Sprite tile(tileSet,IntRect(1, 1, 32, 32));
 
 	/*SoundBuffer buffer;
 	buffer.loadFromFile("Jump.ogg");
@@ -220,12 +224,10 @@ int main()
 				window.close();
 		}
 
+		if (true)    Mario.dx = 0.085;
 
-		if (Keyboard::isKeyPressed(Keyboard::Left))    Mario.dx = -0.1;
-
-		if (Keyboard::isKeyPressed(Keyboard::Right))    Mario.dx = 0.1;
-
-		if (Keyboard::isKeyPressed(Keyboard::Up))	if (Mario.onGround) { Mario.dy = -0.27; Mario.onGround = false;  /*sound.play();*/ }
+		if (Keyboard::isKeyPressed(Keyboard::Space))	if (Mario.onGround) { Mario.dy = -0.19; Mario.onGround = false;  /*sound.play();*/ }
+		if (Keyboard::isKeyPressed(Keyboard::Up))	if (Mario.onGround) { Mario.dy = -0.19; Mario.onGround = false;  /*sound.play();*/ }
 
 
 
@@ -235,17 +237,13 @@ int main()
 
 		if (Mario.rect.intersects(enemy.rect))
 		{
-			if (enemy.life) {
-				if (Mario.dy > 0) { enemy.dx = 0; Mario.dy = -0.2; enemy.life = false; }
-				else
-				{
-
-				};
-			}
+			cout << "Game Over" << endl;
+			system("pause");
+			return 1;
 		}
 
 
-		if (Mario.rect.left > 200) offsetX = Mario.rect.left - 200;          
+		if (Mario.rect.left > 200) offsetX = Mario.rect.left - 200;           //смещение
 
 
 
