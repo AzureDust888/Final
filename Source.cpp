@@ -26,8 +26,8 @@ String TileMap[H] = {
 "0                                                                                                                                                    0",
 "0                                                                                                                                                    0",
 "0                                                                                                                                                    0",
-"0                                       r                                                                                                            0",
-"0                                    r  r                                                                                                            0",
+"0                                      r                                                                                                             0",
+"0                                  r   G                                                                                                             0",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
@@ -49,7 +49,7 @@ public:
 	PLAYER(Texture& image)
 	{
 		sprite.setTexture(image);
-		rect = FloatRect(100, 180, 32, 32);
+		rect = FloatRect(100, 180, 16, 16);
 
 		dx = dy = 0.1;
 		currentFrame = 0;
@@ -128,17 +128,15 @@ public:
 	FloatRect rect;
 	Sprite sprite;
 	float currentFrame;
-	bool life;
 
 
 	void set(Texture& image, int x, int y)
 	{
 		sprite.setTexture(image);
-		rect = FloatRect(x, y, 16, 16);
+		rect = FloatRect(x, y, 14, 14);
 
 		dx = 0.05;
 		currentFrame = 0;
-		life = true;
 	}
 
 	void update(float time)
@@ -177,7 +175,7 @@ int main()
 	RenderWindow window(VideoMode(1000, 300), "SFML works!");
 
 	Texture tileSet;
-	tileSet.loadFromFile("Name.png");
+	tileSet.loadFromFile("Tile.jpg");
 
 	Texture Spike;
 	Spike.loadFromFile("spike.png");
@@ -188,22 +186,19 @@ int main()
 	Texture GameOver;
 	GameOver.loadFromFile("Name.png");
 
+	Texture buildcube;
+	buildcube.loadFromFile("Tile.jpg");
+
 
 	PLAYER Mario(Cube);
-	ENEMY  enemy;
-	ENEMY  gameover;
-	enemy.set(Spike, 48 * 16, 13 * 16);
+	vector<ENEMY> EN(2);
+	for (int i = 0, k = 30; i < EN.size(); i++)
+	{
+		EN[i].set(Spike, k * 16, 13 * 16);
+		k--;
+	}
 
-
-	Sprite tile(tileSet,IntRect(1, 1, 32, 32));
-
-	/*SoundBuffer buffer;
-	buffer.loadFromFile("Jump.ogg");
-	Sound sound(buffer);
-
-	Music music;
-	music.openFromFile("Mario_Theme.ogg");
-	music.play();*/
+	Sprite tile(tileSet);
 
 	Clock clock;
 
@@ -213,7 +208,7 @@ int main()
 		float time = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
 
-		time = time / 650;  // здесь регулируем скорость игры
+		time = time / 600;  // здесь регулируем скорость игры
 
 		if (time > 20) time = 20;
 
@@ -224,26 +219,34 @@ int main()
 				window.close();
 		}
 
-		if (true)    Mario.dx = 0.085;
+		if (true)    Mario.dx = 0.1;
 
-		if (Keyboard::isKeyPressed(Keyboard::Space))	if (Mario.onGround) { Mario.dy = -0.19; Mario.onGround = false;  /*sound.play();*/ }
-		if (Keyboard::isKeyPressed(Keyboard::Up))	if (Mario.onGround) { Mario.dy = -0.19; Mario.onGround = false;  /*sound.play();*/ }
+		if (Keyboard::isKeyPressed(Keyboard::Space))	if (Mario.onGround) { Mario.dy = -0.20; Mario.onGround = false; }
+		if (Keyboard::isKeyPressed(Keyboard::Up))	if (Mario.onGround) { Mario.dy = -0.20; Mario.onGround = false;  }
 
 
 
 		Mario.update(time);
-		enemy.update(time);
-
-
-		if (Mario.rect.intersects(enemy.rect))
+		for (int i = 0; i < EN.size(); i++)
 		{
-			cout << "Game Over" << endl;
-			system("pause");
-			return 1;
+			EN[i].update(time);
+		}
+		for (int i = 0; i < EN.size(); i++)
+		{
+			if (Mario.rect.intersects(EN[i].rect))
+			{
+				
+				cout << "Game Over" << endl;
+				window.close();
+				system("pause");
+				return 1;
+			}
 		}
 
+		
 
-		if (Mario.rect.left > 200) offsetX = Mario.rect.left - 200;           //смещение
+
+		if (Mario.rect.left > 200) offsetX = Mario.rect.left - 200;         
 
 
 
@@ -253,7 +256,7 @@ int main()
 		for (int i = 0; i < H; i++)
 			for (int j = 0; j < W; j++)
 			{
-				if (TileMap[i][j] == 'P')  tile.setTextureRect(IntRect(143 - 16 * 3, 112, 16, 16));
+				if (TileMap[i][j] == 'P')  tile.setTextureRect(IntRect(0, 0, 16, 16));
 
 				if (TileMap[i][j] == 'k')  tile.setTextureRect(IntRect(143, 112, 16, 16));
 
@@ -263,13 +266,13 @@ int main()
 
 				if (TileMap[i][j] == 'g')  tile.setTextureRect(IntRect(0, 16 * 9 - 5, 3 * 16, 16 * 2 + 5));
 
-				if (TileMap[i][j] == 'G')  tile.setTextureRect(IntRect(145, 222, 222 - 145, 255 - 222));
+				if (TileMap[i][j] == 'G')  tile.setTextureRect(IntRect(0, 0, 16, 16));
 
 				if (TileMap[i][j] == 'd')  tile.setTextureRect(IntRect(0, 106, 74, 127 - 106));
 
 				if (TileMap[i][j] == 'w')  tile.setTextureRect(IntRect(99, 224, 140 - 99, 255 - 224));
 
-				if (TileMap[i][j] == 'r')  tile.setTextureRect(IntRect(143 - 32, 112, 16, 16));
+				if (TileMap[i][j] == 'r')  tile.setTextureRect(IntRect(0, 0, 16, 16));
 
 				if ((TileMap[i][j] == ' ') || (TileMap[i][j] == '0')) continue;
 
@@ -280,8 +283,10 @@ int main()
 
 
 		window.draw(Mario.sprite);
-		window.draw(enemy.sprite);
-
+		for (int i = 0; i < EN.size(); i++)
+		{
+			window.draw(EN[i].sprite);
+		}
 		window.display();
 	}
 
