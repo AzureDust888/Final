@@ -26,10 +26,10 @@ String TileMap[H] = {
 "0                                                                                                                                  c                                                                                    1                                                                                  0",
 "0                                                                                                                              c                cc       1111        cc       1111                                      c                                                                                  0",
 "0                                                                                                                          c                   1111      cccc       1111      cccc      1                           c                                                                                      0",
-"0                                                                                                                      c               rrrrrrrrrrrrrrr          rrrrrrrrrrr          rrrr1        1             c                                                                                           0",
-"0                                                                  r                                               c                     kkkkkkkkkkkkrrrrrrrrrrrrkkkkkkkkkrrrrrrrrrrrrkkkrrrr  cccc      1  c                                                                                                      0",
-"0                                                              r   k                         11       rrrrrrrrrr                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk        cccccc                                                                                                          0",
-"0                              1      11      1        11rrr   k   k11                  1rrrrrrrrrr   kkkkkkkkkk                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk                             r                                                                                     0",
+"0                                                                                                                      c               rrrrrrrrrrrrrrr          rrrrrrrrrrr          rrrr1        1             c                                                                                          0",
+"0                                                                  r                                               c                     kkkkkkkkkkkkrrrrrrrrrrrrkkkkkkkkkrrrrrrrrrrrrkkkrrrr  cccc      1  c                                                                                              0",
+"0                                                              r   k                         11       rrrrrrrrrr                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk        cccccc                                                                                                 0",
+"0                              1      11      1        11rrr   k   k11                  1rrrrrrrrrr   kkkkkkkkkk                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk                             r111                                                                               0",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
@@ -227,7 +227,7 @@ public:
 
 	void set(Texture& image, int x, int y)
 	{
-		sprite.setTexture(image);		
+		sprite.setTexture(image);
 		rect = FloatRect(x, y, 16, 8);
 
 		dx = 0.05;
@@ -264,10 +264,10 @@ public:
 
 int main()
 {
-	/*sf::Music music;
+	sf::Music music;
 	if (!music.openFromFile("Clubstep.ogg"))
 		return -1;
-	music.play();*/
+	music.play();
 
 
 	RenderWindow window(VideoMode(1000, 300), "SFML works!");
@@ -298,14 +298,14 @@ int main()
 
 	Texture bg;
 	bg.loadFromFile("Backgroung2.jpg");
-	Sprite background(bg);	
+	Sprite background(bg);
 	background.setColor(Color::Cyan);
 
 	PLAYER Mario(Cube);
 	vector<ENEMY> EN(1);
 	for (int i = 0, k = 30; i < EN.size(); i++)
 	{
-		EN[i].set(Spike,k * 16, 15 * 16);
+		EN[i].set(Spike, k * 16, 15 * 16);
 		k--;
 	}
 
@@ -443,7 +443,7 @@ int main()
 	}
 	vector<ENEMY_WALL> Wall(1);
 	//Wall[0].set(671, 15 * 16);
-	
+
 	Sprite tile(tileSet);
 	tile.setColor(Color::Cyan);
 	Sprite tile2(tileSet2);
@@ -585,7 +585,7 @@ int main()
 				return 1;
 			}
 		}
-		/*for (int i = 0; i < EN.size(); i++)
+		for (int i = 0; i < EN.size(); i++)
 		{
 			if (Mario.rect.intersects(EN[i].rect) || Mario.rect.intersects(EN2[i].rect) || Mario.rect.intersects(EN7[i].rect) || Mario.rect.intersects(EN11[i].rect) || Mario.rect.intersects(EN16[i].rect) ||Mario.rect.intersects(EN17[i].rect) || Mario.rect.intersects(EN18[i].rect) || Mario.rect.intersects(EN19[i].rect) || Mario.rect.intersects(EN20[i].rect))
 			{
@@ -650,7 +650,7 @@ int main()
 				system("pause");
 				return 1;
 			}
-		}*/
+		}
 
 
 
