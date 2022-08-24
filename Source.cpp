@@ -29,7 +29,7 @@ String TileMap[H] = {
 "0                                                                                                                                                                                                                                                                                                          0",
 "0                                                                  r                                                                                                                                                                                                                                         0",
 "0                                                              r   k                                                                                                                                                                                                                                          0",
-"0                              1      11      1        11rrrsssksssk11                                                                                                                                                                                                                                0",
+"0                              1      11      1        11rrr   k   k11                                                                                                                                                                                                                                0",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
@@ -227,9 +227,8 @@ public:
 
 	void set(Texture& image, int x, int y)
 	{
-		sprite.setTexture(image);
-		sprite.setColor(Color::Red);
-		rect = FloatRect(x, y, 14, 14);
+		sprite.setTexture(image);		
+		rect = FloatRect(x, y, 16, 8);
 
 		dx = 0.05;
 		currentFrame = 0;
@@ -265,10 +264,10 @@ public:
 
 int main()
 {
-	sf::Music music;
+	/*sf::Music music;
 	if (!music.openFromFile("Clubstep.ogg"))
 		return -1;
-	music.play();
+	music.play();*/
 
 	RenderWindow window(VideoMode(1000, 300), "SFML works!");
 
@@ -323,12 +322,12 @@ int main()
 		EN4[i].set(Spike, k * 16, 15 * 16);
 		k--;
 	}
-	/*vector<ENEMY_SP> EN5(3);
-	for (int i = 0, k = 60; i < EN1.size(); i++)
+	vector<ENEMY_SP> EN5(3);
+	for (int i = 0, k = 62; i < EN1.size(); i++)
 	{
 		EN5[i].set(Small_spike, k * 16, 15 * 16);
 		k--;
-	}*/
+	}
 	vector<ENEMY_WALL> Wall(1);
 	//Wall[0].set(671, 15 * 16);
 	
@@ -383,10 +382,10 @@ int main()
 		{
 			EN4[i].update(time);
 		}
-		/*for (int i = 0; i < EN5.size(); i++)
+		for (int i = 0; i < EN5.size(); i++)
 		{
 			EN5[i].update(time);
-		}*/
+		}
 		for (int i = 0; i < Wall.size(); i++)
 		{
 			Wall[i].update(time);
@@ -511,10 +510,10 @@ int main()
 		{
 			window.draw(EN4[i].sprite);
 		}
-		/*for (int i = 0; i < EN5.size(); i++)
+		for (int i = 0; i < EN5.size(); i++)
 		{
 			window.draw(EN5[i].sprite);
-		}*/
+		}
 		for (int i = 0; i < Wall.size(); i++)
 		{
 			window.draw(Wall[i].sprite);
