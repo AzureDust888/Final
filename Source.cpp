@@ -215,8 +215,60 @@ public:
 
 };
 
+class ENEMY_SP
+{
+
+public:
+	float dx, dy;
+	FloatRect rect;
+	Sprite sprite;
+	float currentFrame;
+
+
+	void set(Texture& image, int x, int y)
+	{
+		sprite.setTexture(image);
+		sprite.setColor(Color::Red);
+		rect = FloatRect(x, y, 14, 14);
+
+		dx = 0.05;
+		currentFrame = 0;
+	}
+
+	void update(float time)
+	{
+		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
+
+	}
+
+
+	void Collision()
+	{
+
+		for (int i = rect.top / 16; i < (rect.top + rect.height) / 16; i++)
+			for (int j = rect.left / 16; j < (rect.left + rect.width) / 16; j++)
+				if ((TileMap[i][j] == 'P') || (TileMap[i][j] == '0'))
+				{
+					if (dx > 0)
+					{
+						rect.left = j * 16 - rect.width; dx *= -1;
+					}
+					else if (dx < 0)
+					{
+						rect.left = j * 16 + 16;  dx *= -1;
+					}
+
+				}
+	}
+
+};
+
 int main()
 {
+	sf::Music music;
+	if (!music.openFromFile("Clubstep.ogg"))
+		return -1;
+	music.play();
 
 	RenderWindow window(VideoMode(1000, 300), "SFML works!");
 
@@ -271,6 +323,12 @@ int main()
 		EN4[i].set(Spike, k * 16, 15 * 16);
 		k--;
 	}
+	/*vector<ENEMY_SP> EN5(3);
+	for (int i = 0, k = 60; i < EN1.size(); i++)
+	{
+		EN5[i].set(Small_spike, k * 16, 15 * 16);
+		k--;
+	}*/
 	vector<ENEMY_WALL> Wall(1);
 	//Wall[0].set(671, 15 * 16);
 	
@@ -325,6 +383,10 @@ int main()
 		{
 			EN4[i].update(time);
 		}
+		/*for (int i = 0; i < EN5.size(); i++)
+		{
+			EN5[i].update(time);
+		}*/
 		for (int i = 0; i < Wall.size(); i++)
 		{
 			Wall[i].update(time);
@@ -449,6 +511,10 @@ int main()
 		{
 			window.draw(EN4[i].sprite);
 		}
+		/*for (int i = 0; i < EN5.size(); i++)
+		{
+			window.draw(EN5[i].sprite);
+		}*/
 		for (int i = 0; i < Wall.size(); i++)
 		{
 			window.draw(Wall[i].sprite);
