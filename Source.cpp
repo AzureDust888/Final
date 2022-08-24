@@ -322,10 +322,10 @@ int main()
 		EN4[i].set(Spike, k * 16, 15 * 16);
 		k--;
 	}
-	vector<ENEMY_SP> EN5(3);
+	vector<ENEMY_SP> EN5(2);
 	for (int i = 0, k = 62; i < EN1.size(); i++)
 	{
-		EN5[i].set(Small_spike, k * 16, 15 * 16);
+		EN5[i].set(Small_spike, k * 16, 15.5 * 16);
 		k--;
 	}
 	vector<ENEMY_WALL> Wall(1);
@@ -355,9 +355,9 @@ int main()
 
 		if (Keyboard::isKeyPressed(Keyboard::Left))    Mario.dx = -0.1;
 		if (Keyboard::isKeyPressed(Keyboard::Right))    Mario.dx = 0.1;
-
-		if (Keyboard::isKeyPressed(Keyboard::Space))	if (Mario.onGround) { Mario.dy = -0.18; Mario.onGround = false; }
-		if (Keyboard::isKeyPressed(Keyboard::Up))	if (Mario.onGround) { Mario.dy = -0.18; Mario.onGround = false; }
+		//if(true) Mario.dx = 0.1;
+		if (Keyboard::isKeyPressed(Keyboard::Space))	if (Mario.onGround) { Mario.dy = -0.19; Mario.onGround = false; }
+		if (Keyboard::isKeyPressed(Keyboard::Up))	if (Mario.onGround) { Mario.dy = -0.19; Mario.onGround = false; }
 
 
 
