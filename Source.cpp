@@ -15,5 +15,4 @@ int main()
 				window.close();
 		}
 	}
-
 }
