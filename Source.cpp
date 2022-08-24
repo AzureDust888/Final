@@ -1,6 +1,7 @@
 ﻿#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
+#include <thread>
 using namespace std;
 
 using namespace sf;
@@ -28,7 +29,7 @@ String TileMap[H] = {
 "0                                                                                                                          c                   1111      cccc       1111      cccc      1                           c                                                                                      0",
 "0                                                                                                                      c               rrrrrrrrrrrrrrr          rrrrrrrrrrr          rrrr1        1             c                                                                                          0",
 "0                                                                  r                                               c                     kkkkkkkkkkkkrrrrrrrrrrrrkkkkkkkkkrrrrrrrrrrrrkkkrrrr  cccc      1  c                                                                                              0",
-"0                                                              r   k                         11       rrrrrrrrrr                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk        cccccc                                                                                                 0",
+"0                     rrr                                      r   k                         11       rrrrrrrrrr                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk        cccccc                                                                                                 0",
 "0                              1      11      1        11rrr   k   k11                  1rrrrrrrrrr   kkkkkkkkkk                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk                             r111                                                                               0",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
@@ -47,9 +48,9 @@ public:
 	bool onGround;
 	Sprite sprite;
 	float currentFrame;
-
 	PLAYER(Texture& image)
 	{
+
 		sprite.setTexture(image);
 		rect = FloatRect(100, 180, 16, 16);
 
@@ -65,7 +66,7 @@ public:
 		Collision(0);
 
 
-		if (!onGround) dy = dy + 0.0005 * time;
+		if (!onGround) dy = dy + 0.000485 * time;
 		rect.top += dy * time;
 		onGround = false;
 		Collision(1);
@@ -73,18 +74,35 @@ public:
 
 		currentFrame += time * 0.005;
 		if (currentFrame > 3) currentFrame -= 3;
-
-
-		/*if (dx > 0) sprite.setTextureRect(IntRect(112 + 31 * int(currentFrame), 144, 16, 16));
-		if (dx < 0) sprite.setTextureRect(IntRect(112 + 31 * int(currentFrame) + 16, 144, -16, 16));*/
-
-
+		sprite.setRotation(0);
 		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
-
 		dx = 0;
 	}
 
+	void update2(float time)
+	{
 
+		rect.left += dx * time;
+		Collision(0);
+
+
+		if (!onGround) dy = dy + 0.000485 * time;
+		rect.top += dy * time;
+		onGround = false;
+		Collision(1);
+
+
+		currentFrame += time * 0.005;
+		if (currentFrame > 3) currentFrame -= 3;
+		sprite.setOrigin(8.5, 8.5);
+		if (!onGround) { sprite.rotate(3); }
+		else { sprite.rotate(0); }
+		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
+		/*auto tmp = sprite.getOrigin();
+		sprite.setOrigin(tmp);*/
+
+		dx = 0;
+	}
 	void Collision(int num)
 	{
 
@@ -272,7 +290,7 @@ int main()
 
 	RenderWindow window(VideoMode(1000, 300), "SFML works!");
 
-	Texture tileSet;
+    Texture tileSet;
 	tileSet.loadFromFile("Tile.jpg");
 
 	Texture tileSet2;
@@ -288,7 +306,7 @@ int main()
 	Cube.loadFromFile("CubeJ.jpg");
 
 	Texture GameOver;
-	GameOver.loadFromFile("Name.png");
+	GameOver.loadFromFile("name.png");
 
 	Texture buildcube;
 	buildcube.loadFromFile("Tile.jpg");
@@ -455,7 +473,7 @@ int main()
 
 	while (window.isOpen())
 	{
-
+		
 		float time = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
 
@@ -476,7 +494,14 @@ int main()
 
 
 
-		Mario.update(time);
+		if (Mario.onGround)
+		{
+			Mario.update(time);
+		}
+		else
+		{
+			Mario.update2(time);
+		}
 		for (int i = 0; i < EN.size(); i++)
 		{
 			EN[i].update(time);
@@ -587,7 +612,6 @@ int main()
 		{
 			if (Mario.rect.intersects(EN[i].rect) || Mario.rect.intersects(EN2[i].rect) || Mario.rect.intersects(EN7[i].rect) || Mario.rect.intersects(EN11[i].rect) || Mario.rect.intersects(EN16[i].rect) || Mario.rect.intersects(EN17[i].rect) || Mario.rect.intersects(EN18[i].rect) || Mario.rect.intersects(EN19[i].rect) || Mario.rect.intersects(EN20[i].rect))
 			{
-
 				cout << "Game Over" << endl;
 				window.close();
 				system("pause");
@@ -598,7 +622,6 @@ int main()
 		{
 			if (Mario.rect.intersects(EN1[i].rect) || Mario.rect.intersects(EN3[i].rect) || Mario.rect.intersects(EN4[i].rect) || Mario.rect.intersects(EN8[i].rect))
 			{
-
 				cout << "Game Over" << endl;
 				window.close();
 				system("pause");
@@ -609,7 +632,6 @@ int main()
 		{
 			if (Mario.rect.intersects(EN5[i].rect) || Mario.rect.intersects(EN6[i].rect) || Mario.rect.intersects(EN9[i].rect) || Mario.rect.intersects(EN22[i].rect))
 			{
-
 				cout << "Game Over" << endl;
 				window.close();
 				system("pause");
@@ -620,7 +642,6 @@ int main()
 		{
 			if (Mario.rect.intersects(EN12[i].rect) || Mario.rect.intersects(EN13[i].rect) || Mario.rect.intersects(EN14[i].rect) || Mario.rect.intersects(EN15[i].rect))
 			{
-
 				cout << "Game Over" << endl;
 				window.close();
 				system("pause");
@@ -631,7 +652,6 @@ int main()
 		{
 			if (Mario.rect.intersects(EN10[i].rect))
 			{
-
 				cout << "Game Over" << endl;
 				window.close();
 				system("pause");
@@ -642,7 +662,6 @@ int main()
 		{
 			if (Mario.rect.intersects(EN21[i].rect))
 			{
-
 				cout << "Game Over" << endl;
 				window.close();
 				system("pause");
