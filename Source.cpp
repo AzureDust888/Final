@@ -26,8 +26,8 @@ String TileMap[H] = {
 "0                                                                                                                                                    0",
 "0                                                                                                                                                    0",
 "0                                                                                                                                                    0",
-"0                                      r                                                                                                             0",
-"0                                  r   G                                                                                                             0",
+"0                                                                                                                                                   0",
+"0                                         rrr                                                                                                        0",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
@@ -133,6 +133,7 @@ public:
 	void set(Texture& image, int x, int y)
 	{
 		sprite.setTexture(image);
+		sprite.setColor(Color::Red);
 		rect = FloatRect(x, y, 14, 14);
 
 		dx = 0.05;
@@ -167,7 +168,52 @@ public:
 
 };
 
+class ENEMY_WALL
+{
 
+public:
+	float dx, dy;
+	FloatRect rect;
+	Sprite sprite;
+	float currentFrame;
+
+
+	void set(int x, int y)
+	{
+		sprite.setColor(Color::Red);
+		rect = FloatRect(x, y, 1, 15);
+
+		dx = 0.05;
+		currentFrame = 0;
+	}
+
+	void update(float time)
+	{
+		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
+
+	}
+
+
+	void Collision()
+	{
+
+		for (int i = rect.top / 16; i < (rect.top + rect.height) / 16; i++)
+			for (int j = rect.left / 16; j < (rect.left + rect.width) / 16; j++)
+				if ((TileMap[i][j] == 'P') || (TileMap[i][j] == '0'))
+				{
+					if (dx > 0)
+					{
+						rect.left = j * 16 - rect.width; dx *= -1;
+					}
+					else if (dx < 0)
+					{
+						rect.left = j * 16 + 16;  dx *= -1;
+					}
+
+				}
+	}
+
+};
 
 int main()
 {
@@ -197,8 +243,13 @@ int main()
 		EN[i].set(Spike, k * 16, 13 * 16);
 		k--;
 	}
+	vector<ENEMY_WALL> Wall(3);
+	Wall[0].set(671, 13 * 16);
+	Wall[1].set(671, 12 * 16);
+	Wall[2].set(671, 11 * 16);
 
 	Sprite tile(tileSet);
+	tile.setColor(Color::Cyan);
 
 	Clock clock;
 
@@ -231,6 +282,20 @@ int main()
 		{
 			EN[i].update(time);
 		}
+		for (int i = 0; i < Wall.size(); i++)
+		{
+			Wall[i].update(time);
+		}
+		for (int i = 0; i < Wall.size(); i++)
+		{
+			if (Mario.rect.intersects(Wall[i].rect))
+			{
+				cout << "Game Over" << endl;
+				window.close();
+				system("pause");
+				return 1;
+			}
+		}
 		for (int i = 0; i < EN.size(); i++)
 		{
 			if (Mario.rect.intersects(EN[i].rect))
@@ -242,7 +307,7 @@ int main()
 				return 1;
 			}
 		}
-
+		
 		
 
 
@@ -286,6 +351,10 @@ int main()
 		for (int i = 0; i < EN.size(); i++)
 		{
 			window.draw(EN[i].sprite);
+		}
+		for (int i = 0; i < Wall.size(); i++)
+		{
+			window.draw(Wall[i].sprite);
 		}
 		window.display();
 	}
