@@ -1,8 +1,9 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-
+using namespace std;
 int main()
 {
+	cout << "efefe"<<endl;
 	sf::RenderWindow window(sf::VideoMode(800, 400), "This");
 	sf::Event e;
 	while (window.isOpen())
