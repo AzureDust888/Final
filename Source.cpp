@@ -1,7 +1,6 @@
-#include <SFML/Graphics.hpp>
+п»ї#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
-#include <thread>
 using namespace std;
 
 using namespace sf;
@@ -30,7 +29,7 @@ String TileMap[H] = {
 "0                                                                                                                      c               rrrrrrrrrrrrrrr          rrrrrrrrrrr          rrrr1        1             c                                                                                          0",
 "0                                                                  r                                               c                     kkkkkkkkkkkkrrrrrrrrrrrrkkkkkkkkkrrrrrrrrrrrrkkkrrrr  cccc      1  c                                                                                              0",
 "0                                                              r   k                         11       rrrrrrrrrr                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk        cccccc                                                                                                 0",
-"0                              1      11      1        11rrr   k   k11                  1rrrrrrrrrr   kkkkkkkkkk                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk                             r                                                                                  0",
+"0                              1      11      1        11rrr   k   k11                  1rrrrrrrrrr   kkkkkkkkkk                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk                             r111                                                                               0",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
@@ -113,14 +112,13 @@ public:
 				}
 
 				if (TileMap[i][j] == 'c') {
+					// TileMap[i][j]=' '; 
 				}
 			}
 
 	}
 
 };
-
-
 
 class ENEMY
 {
@@ -189,7 +187,7 @@ public:
 		currentFrame = 0;
 	}
 
-	void update(float time)	
+	void update(float time)
 	{
 		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
 
@@ -216,6 +214,7 @@ public:
 	}
 
 };
+
 class ENEMY_SP
 {
 
@@ -262,16 +261,22 @@ public:
 	}
 
 };
+
 int main()
 {
+	sf::Music music;
+	if (!music.openFromFile("Clubstep.ogg"))
+		return -1;
+	music.play();
+
 
 	RenderWindow window(VideoMode(1000, 300), "SFML works!");
 
-	Texture tileSet;//image_2022-08-24_16-50-32.png
+	Texture tileSet;
 	tileSet.loadFromFile("Tile.jpg");
 
-	Texture tileSet2;//image_2022-08-24_16-50-32.png
-	tileSet2.loadFromFile("image_2022-08-24_16-50-32.png");
+	Texture tileSet2;
+	tileSet2.loadFromFile("Tile2.jpg");
 
 	Texture tileSet3;
 	tileSet3.loadFromFile("Half-Tile.png");
@@ -280,7 +285,7 @@ int main()
 	Spike.loadFromFile("spike.png");
 
 	Texture Cube;
-	Cube.loadFromFile("CubeJ.jpg");//479-4795141_geometry-dash-png-transparent-png,
+	Cube.loadFromFile("CubeJ.jpg");
 
 	Texture GameOver;
 	GameOver.loadFromFile("Name.png");
@@ -291,13 +296,19 @@ int main()
 	Texture Small_spike;
 	Small_spike.loadFromFile("Small_SP.png");
 
+	Texture bg;
+	bg.loadFromFile("Backgroung2.jpg");
+	Sprite background(bg);
+	background.setColor(Color::Cyan);
+
 	PLAYER Mario(Cube);
-	vector<ENEMY> EN(2);
+	vector<ENEMY> EN(1);
 	for (int i = 0, k = 30; i < EN.size(); i++)
 	{
 		EN[i].set(Spike, k * 16, 15 * 16);
 		k--;
 	}
+
 	vector<ENEMY> EN1(2);
 	for (int i = 0, k = 39; i < EN1.size(); i++)
 	{
@@ -430,33 +441,25 @@ int main()
 		EN22[i].set(Spike, k * 16, 15 * 16);
 		k--;
 	}
-
 	vector<ENEMY_WALL> Wall(1);
-	/*Wall[0].set(671, 15 * 16);*/
-	Texture bg;
-	bg.loadFromFile("Backgroung2.jpg");
-	Sprite background(bg);
+	//Wall[0].set(671, 15 * 16);
+
 	Sprite tile(tileSet);
-	Sprite tile2(tileSet2);
-	Sprite tile3(tileSet3);
-	background.setColor(Color::Cyan);
 	tile.setColor(Color::Cyan);
+	Sprite tile2(tileSet2);
 	tile2.setColor(Color::Cyan);
+	Sprite tile3(tileSet3);
 	tile3.setColor(Color::Cyan);
 
-
 	Clock clock;
-	sf::Music music;
-	if (!music.openFromFile("Clubstep.ogg"))
-		return -1;
-	music.play();
+
 	while (window.isOpen())
-	{	
-		
+	{
+
 		float time = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
 
-		time = time / 600;  // здесь регулируем скорость игры
+		time = time / 550;  // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
 		if (time > 20) time = 20;
 
@@ -467,8 +470,7 @@ int main()
 				window.close();
 		}
 
-		if (true)    Mario.dx = 0.1;
-
+		if(true) Mario.dx = 0.1;
 		if (Keyboard::isKeyPressed(Keyboard::Space))	if (Mario.onGround) { Mario.dy = -0.19; Mario.onGround = false; }
 		if (Keyboard::isKeyPressed(Keyboard::Up))	if (Mario.onGround) { Mario.dy = -0.19; Mario.onGround = false; }
 
@@ -581,7 +583,73 @@ int main()
 				return 1;
 			}
 		}
-		
+		for (int i = 0; i < EN.size(); i++)
+		{
+			if (Mario.rect.intersects(EN[i].rect) || Mario.rect.intersects(EN2[i].rect) || Mario.rect.intersects(EN7[i].rect) || Mario.rect.intersects(EN11[i].rect) || Mario.rect.intersects(EN16[i].rect) || Mario.rect.intersects(EN17[i].rect) || Mario.rect.intersects(EN18[i].rect) || Mario.rect.intersects(EN19[i].rect) || Mario.rect.intersects(EN20[i].rect))
+			{
+
+				cout << "Game Over" << endl;
+				window.close();
+				system("pause");
+				return 1;
+			}
+		}
+		for (int i = 0; i < EN1.size(); i++)
+		{
+			if (Mario.rect.intersects(EN1[i].rect) || Mario.rect.intersects(EN3[i].rect) || Mario.rect.intersects(EN4[i].rect) || Mario.rect.intersects(EN8[i].rect))
+			{
+
+				cout << "Game Over" << endl;
+				window.close();
+				system("pause");
+				return 1;
+			}
+		}
+		for (int i = 0; i < EN5.size(); i++)
+		{
+			if (Mario.rect.intersects(EN5[i].rect) || Mario.rect.intersects(EN6[i].rect) || Mario.rect.intersects(EN9[i].rect) || Mario.rect.intersects(EN22[i].rect))
+			{
+
+				cout << "Game Over" << endl;
+				window.close();
+				system("pause");
+				return 1;
+			}
+		}
+		for (int i = 0; i < EN12.size(); i++)
+		{
+			if (Mario.rect.intersects(EN12[i].rect) || Mario.rect.intersects(EN13[i].rect) || Mario.rect.intersects(EN14[i].rect) || Mario.rect.intersects(EN15[i].rect))
+			{
+
+				cout << "Game Over" << endl;
+				window.close();
+				system("pause");
+				return 1;
+			}
+		}
+		for (int i = 0; i < EN10.size(); i++)
+		{
+			if (Mario.rect.intersects(EN10[i].rect))
+			{
+
+				cout << "Game Over" << endl;
+				window.close();
+				system("pause");
+				return 1;
+			}
+		}
+		for (int i = 0; i < EN21.size(); i++)
+		{
+			if (Mario.rect.intersects(EN21[i].rect))
+			{
+
+				cout << "Game Over" << endl;
+				window.close();
+				system("pause");
+				return 1;
+			}
+		}
+
 
 
 
@@ -592,12 +660,14 @@ int main()
 
 		window.clear(Color::White);
 		window.draw(background);
+
 		for (int i = 0; i < H; i++)
 			for (int j = 0; j < W; j++)
 			{
-				if (TileMap[i][j] == 'P') { tile.setTextureRect(IntRect(0, 0, 16, 16)); 
-				tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
-				window.draw(tile);
+				if (TileMap[i][j] == 'P') {
+					tile.setTextureRect(IntRect(0, 0, 16, 16));
+					tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
+					window.draw(tile);
 				}
 
 				if (TileMap[i][j] == 'k') {
@@ -606,40 +676,47 @@ int main()
 					window.draw(tile2);
 				}
 
-				if (TileMap[i][j] == 'c')  {tile.setTextureRect(IntRect(0, 0, 16, 8));
-				tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
-				window.draw(tile);
+				if (TileMap[i][j] == 'c') {
+					tile3.setTextureRect(IntRect(0, 0, 16, 8));
+					tile3.setPosition(j * 16 - offsetX, i * 16 - offsetY);
+					window.draw(tile3);
 				}
-				if (TileMap[i][j] == 't')  {tile.setTextureRect(IntRect(0, 0, 16, 16));
-				tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
-				window.draw(tile);
+				if (TileMap[i][j] == 't') {
+					tile.setTextureRect(IntRect(0, 0, 16, 16));
+					tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
+					window.draw(tile);
 				}
-				if (TileMap[i][j] == 'g')  {tile.setTextureRect(IntRect(0, 0, 16, 16));
-				tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
-				window.draw(tile);
+				if (TileMap[i][j] == 'g') {
+					tile.setTextureRect(IntRect(0, 0, 16, 16));
+					tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
+					window.draw(tile);
 				}
-				if (TileMap[i][j] == 'G')  {tile.setTextureRect(IntRect(0, 0, 16, 16));
-				tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
-				window.draw(tile);
+				if (TileMap[i][j] == 'G') {
+					tile.setTextureRect(IntRect(0, 0, 16, 16));
+					tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
+					window.draw(tile);
 				}
-				if (TileMap[i][j] == 'd')  {tile.setTextureRect(IntRect(0, 0, 16, 16));
-				tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
-				window.draw(tile);
+				if (TileMap[i][j] == 'd') {
+					tile.setTextureRect(IntRect(0, 0, 16, 16));
+					tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
+					window.draw(tile);
 				}
-				if (TileMap[i][j] == 'w')  {tile.setTextureRect(IntRect(0, 0, 16, 16));
-				tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
-				window.draw(tile);
+				if (TileMap[i][j] == 'w') {
+					tile.setTextureRect(IntRect(0, 0, 16, 16));
+					tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
+					window.draw(tile);
 				}
-				if (TileMap[i][j] == 'r')  {tile.setTextureRect(IntRect(0, 0, 16, 16));
-				tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
-				window.draw(tile);
+				if (TileMap[i][j] == 'r') {
+					tile.setTextureRect(IntRect(0, 0, 16, 16));
+					tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
+					window.draw(tile);
 				}
 				if ((TileMap[i][j] == ' ') || (TileMap[i][j] == '0')) continue;
 
 			}
 
 
-		
+
 		window.draw(Mario.sprite);
 		for (int i = 0; i < EN.size(); i++)
 		{
@@ -741,6 +818,3 @@ int main()
 	}
 
 }
-
-
-
