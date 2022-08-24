@@ -23,13 +23,13 @@ String TileMap[H] = {
 "0                                                                                                                                                                                                                                                                                                          0",
 "0                                                                                                                                      1                                                                                                                                                                   0",
 "0                                                                                                                                      c                                                                                                                                                                   0",
-"0                                                                                                                                  c                                                                                                                                                                       0",
-"0                                                                                                                              c                cc       1111       cccc      1111                                                                                                                         0",
-"0                                                                                                                          c                   1111      cccc       1111      cccc                                                                                                                         0",
-"0                                                                                                                      c               rrrrrrrrrrrrrrr          rrrrrrrrrrr          rr                                                                                                                    0",
-"0                                                                  r                                               r                     kkkkkkkkkkkkrrrrrrrrrrrrkkkkkkkkkrrrrrrrrrrrrk                                                                                                                    0",
-"0                                                              r   k                         11       rrrrrrrrrr                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk                                                                                                                    0",
-"0                              1      11      1        11rrr   k   k11                  1rrrrrrrrrr   kkkkkkkkkk                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk                                                                                                                    0",
+"0                                                                                                                                  c                                                                                    1                                                                                  0",
+"0                                                                                                                              c                cc       1111        cc       1111                                      c                                                                                  0",
+"0                                                                                                                          c                   1111      cccc       1111      cccc      1                           c                                                                                      0",
+"0                                                                                                                      c               rrrrrrrrrrrrrrr          rrrrrrrrrrr          rrrr1        1             c                                                                                           0",
+"0                                                                  r                                               c                     kkkkkkkkkkkkrrrrrrrrrrrrkkkkkkkkkrrrrrrrrrrrrkkkrrrr  cccc      1  c                                                                                                      0",
+"0                                                              r   k                         11       rrrrrrrrrr                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk        cccccc                                                                                                          0",
+"0                              1      11      1        11rrr   k   k11                  1rrrrrrrrrr   kkkkkkkkkk                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk                             r                                                                                     0",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
@@ -91,7 +91,7 @@ public:
 		for (int i = rect.top / 16; i < (rect.top + rect.height) / 16; i++)
 			for (int j = rect.left / 16; j < (rect.left + rect.width) / 16; j++)
 			{
-				if ((TileMap[i][j] == 'P') || (TileMap[i][j] == 'k') || (TileMap[i][j] == '0') || (TileMap[i][j] == 'r') || (TileMap[i][j] == 't'))
+				if ((TileMap[i][j] == 'P') || (TileMap[i][j] == 'k') || (TileMap[i][j] == '0') || (TileMap[i][j] == 'r') || (TileMap[i][j] == 't') || (TileMap[i][j] == 'c'))
 				{
 					if (dy > 0 && num == 1)
 					{
@@ -278,6 +278,9 @@ int main()
 	Texture tileSet2;
 	tileSet2.loadFromFile("Tile2.jpg");
 
+	Texture tileSet3;
+	tileSet3.loadFromFile("Half-Tile.png");
+
 	Texture Spike;
 	Spike.loadFromFile("spike.png");
 
@@ -372,6 +375,72 @@ int main()
 		EN11[i].set(Spike, k * 16, 7 * 16);
 		k--;
 	}
+	vector<ENEMY> EN12(4);
+	for (int i = 0, k = 146; i < EN12.size(); i++)
+	{
+		EN12[i].set(Spike, k * 16, 11 * 16);
+		k--;
+	}
+	vector<ENEMY> EN13(4);
+	for (int i = 0, k = 156; i < EN13.size(); i++)
+	{
+		EN13[i].set(Spike, k * 16, 10 * 16);
+		k--;
+	}
+	vector<ENEMY> EN14(4);
+	for (int i = 0, k = 167; i < EN14.size(); i++)
+	{
+		EN14[i].set(Spike, k * 16, 11 * 16);
+		k--;
+	}
+	vector<ENEMY> EN15(4);
+	for (int i = 0, k = 177; i < EN15.size(); i++)
+	{
+		EN15[i].set(Spike, k * 16, 10 * 16);
+		k--;
+	}
+	vector<ENEMY> EN16(1);
+	for (int i = 0, k = 184; i < EN16.size(); i++)
+	{
+		EN16[i].set(Spike, k * 16, 11 * 16);
+		k--;
+	}
+	vector<ENEMY> EN17(1);
+	for (int i = 0, k = 185; i < EN17.size(); i++)
+	{
+		EN17[i].set(Spike, k * 16, 12 * 16);
+		k--;
+	}
+	vector<ENEMY> EN18(1);
+	for (int i = 0, k = 194; i < EN18.size(); i++)
+	{
+		EN18[i].set(Spike, k * 16, 12 * 16);
+		k--;
+	}
+	vector<ENEMY> EN19(1);
+	for (int i = 0, k = 201; i < EN19.size(); i++)
+	{
+		EN19[i].set(Spike, k * 16, 13 * 16);
+		k--;
+	}
+	vector<ENEMY> EN20(1);
+	for (int i = 0, k = 216; i < EN20.size(); i++)
+	{
+		EN20[i].set(Spike, k * 16, 9 * 16);
+		k--;
+	}
+	vector<ENEMY_SP> EN21(29);
+	for (int i = 0, k = 215; i < EN21.size(); i++)
+	{
+		EN21[i].set(Small_spike, k * 16, 15.5 * 16);
+		k--;
+	}
+	vector<ENEMY> EN22(3);
+	for (int i = 0, k = 219; i < EN22.size(); i++)
+	{
+		EN22[i].set(Spike, k * 16, 15 * 16);
+		k--;
+	}
 	vector<ENEMY_WALL> Wall(1);
 	//Wall[0].set(671, 15 * 16);
 	
@@ -379,6 +448,8 @@ int main()
 	tile.setColor(Color::Cyan);
 	Sprite tile2(tileSet2);
 	tile2.setColor(Color::Cyan);
+	Sprite tile3(tileSet3);
+	tile3.setColor(Color::Cyan);
 
 	Clock clock;
 
@@ -456,6 +527,50 @@ int main()
 		{
 			EN11[i].update(time);
 		}
+		for (int i = 0; i < EN12.size(); i++)
+		{
+			EN12[i].update(time);
+		}
+		for (int i = 0; i < EN13.size(); i++)
+		{
+			EN13[i].update(time);
+		}
+		for (int i = 0; i < EN14.size(); i++)
+		{
+			EN14[i].update(time);
+		}
+		for (int i = 0; i < EN15.size(); i++)
+		{
+			EN15[i].update(time);
+		}
+		for (int i = 0; i < EN16.size(); i++)
+		{
+			EN16[i].update(time);
+		}
+		for (int i = 0; i < EN17.size(); i++)
+		{
+			EN17[i].update(time);
+		}
+		for (int i = 0; i < EN18.size(); i++)
+		{
+			EN18[i].update(time);
+		}
+		for (int i = 0; i < EN19.size(); i++)
+		{
+			EN19[i].update(time);
+		}
+		for (int i = 0; i < EN20.size(); i++)
+		{
+			EN20[i].update(time);
+		}
+		for (int i = 0; i < EN21.size(); i++)
+		{
+			EN21[i].update(time);
+		}
+		for (int i = 0; i < EN22.size(); i++)
+		{
+			EN22[i].update(time);
+		}
 		for (int i = 0; i < Wall.size(); i++)
 		{
 			Wall[i].update(time);
@@ -472,7 +587,7 @@ int main()
 		}
 		/*for (int i = 0; i < EN.size(); i++)
 		{
-			if (Mario.rect.intersects(EN[i].rect) || Mario.rect.intersects(EN2[i].rect) || Mario.rect.intersects(EN7[i].rect) || Mario.rect.intersects(EN11[i].rect))
+			if (Mario.rect.intersects(EN[i].rect) || Mario.rect.intersects(EN2[i].rect) || Mario.rect.intersects(EN7[i].rect) || Mario.rect.intersects(EN11[i].rect) || Mario.rect.intersects(EN16[i].rect) ||Mario.rect.intersects(EN17[i].rect) || Mario.rect.intersects(EN18[i].rect) || Mario.rect.intersects(EN19[i].rect) || Mario.rect.intersects(EN20[i].rect))
 			{
 
 				cout << "Game Over" << endl;
@@ -494,7 +609,18 @@ int main()
 		}
 		for (int i = 0; i < EN5.size(); i++)
 		{
-			if (Mario.rect.intersects(EN5[i].rect) || Mario.rect.intersects(EN6[i].rect) || Mario.rect.intersects(EN9[i].rect))
+			if (Mario.rect.intersects(EN5[i].rect) || Mario.rect.intersects(EN6[i].rect) || Mario.rect.intersects(EN9[i].rect) || Mario.rect.intersects(EN22[i].rect))
+			{
+
+				cout << "Game Over" << endl;
+				window.close();
+				system("pause");
+				return 1;
+			}
+		}
+		for (int i = 0; i < EN12.size(); i++)
+		{
+			if (Mario.rect.intersects(EN12[i].rect) || Mario.rect.intersects(EN13[i].rect) || Mario.rect.intersects(EN14[i].rect) || Mario.rect.intersects(EN15[i].rect))
 			{
 
 				cout << "Game Over" << endl;
@@ -506,6 +632,17 @@ int main()
 		for (int i = 0; i < EN10.size(); i++)
 		{
 			if (Mario.rect.intersects(EN10[i].rect))
+			{
+
+				cout << "Game Over" << endl;
+				window.close();
+				system("pause");
+				return 1;
+			}
+		}
+		for (int i = 0; i < EN21.size(); i++)
+		{
+			if (Mario.rect.intersects(EN21[i].rect))
 			{
 
 				cout << "Game Over" << endl;
@@ -542,9 +679,9 @@ int main()
 				}
 
 				if (TileMap[i][j] == 'c') {
-					tile.setTextureRect(IntRect(0, 0, 16, 16));
-					tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
-					window.draw(tile);
+					tile3.setTextureRect(IntRect(0, 0, 16, 8));
+					tile3.setPosition(j * 16 - offsetX, i * 16 - offsetY);
+					window.draw(tile3);
 				}
 				if (TileMap[i][j] == 't') {
 					tile.setTextureRect(IntRect(0, 0, 16, 16));
@@ -630,6 +767,50 @@ int main()
 		for (int i = 0; i < EN11.size(); i++)
 		{
 			window.draw(EN11[i].sprite);
+		}
+		for (int i = 0; i < EN12.size(); i++)
+		{
+			window.draw(EN12[i].sprite);
+		}
+		for (int i = 0; i < EN13.size(); i++)
+		{
+			window.draw(EN13[i].sprite);
+		}
+		for (int i = 0; i < EN14.size(); i++)
+		{
+			window.draw(EN14[i].sprite);
+		}
+		for (int i = 0; i < EN15.size(); i++)
+		{
+			window.draw(EN15[i].sprite);
+		}
+		for (int i = 0; i < EN16.size(); i++)
+		{
+			window.draw(EN16[i].sprite);
+		}
+		for (int i = 0; i < EN17.size(); i++)
+		{
+			window.draw(EN17[i].sprite);
+		}
+		for (int i = 0; i < EN18.size(); i++)
+		{
+			window.draw(EN18[i].sprite);
+		}
+		for (int i = 0; i < EN19.size(); i++)
+		{
+			window.draw(EN19[i].sprite);
+		}
+		for (int i = 0; i < EN20.size(); i++)
+		{
+			window.draw(EN20[i].sprite);
+		}
+		for (int i = 0; i < EN21.size(); i++)
+		{
+			window.draw(EN21[i].sprite);
+		}
+		for (int i = 0; i < EN22.size(); i++)
+		{
+			window.draw(EN22[i].sprite);
 		}
 		for (int i = 0; i < Wall.size(); i++)
 		{
