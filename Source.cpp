@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
+#include <thread>
 using namespace std;
 
 using namespace sf;
@@ -9,7 +10,7 @@ using namespace sf;
 float offsetX = 0, offsetY = 0;
 
 
-const int H = 17;
+const int H = 19;
 const int W = 150;
 
 
@@ -26,8 +27,10 @@ String TileMap[H] = {
 "0                                                                                                                                                    0",
 "0                                                                                                                                                    0",
 "0                                                                                                                                                    0",
+"0                                                                                                                                                    0",
 "0                                                                                                                                                   0",
-"0                                         rrr                                                                                                        0",
+"0                                          r                                                                                                         0",
+"0                                          k                                                                                                         0",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
@@ -187,7 +190,7 @@ public:
 		currentFrame = 0;
 	}
 
-	void update(float time)
+	void update(float time)	
 	{
 		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
 
@@ -220,8 +223,11 @@ int main()
 
 	RenderWindow window(VideoMode(1000, 300), "SFML works!");
 
-	Texture tileSet;
+	Texture tileSet;//image_2022-08-24_16-50-32.png
 	tileSet.loadFromFile("Tile.jpg");
+
+	Texture tileSet2;//image_2022-08-24_16-50-32.png
+	tileSet2.loadFromFile("image_2022-08-24_16-50-32.png");
 
 	Texture Spike;
 	Spike.loadFromFile("spike.png");
@@ -240,22 +246,28 @@ int main()
 	vector<ENEMY> EN(2);
 	for (int i = 0, k = 30; i < EN.size(); i++)
 	{
-		EN[i].set(Spike, k * 16, 13 * 16);
+		EN[i].set(Spike, k * 16, 15 * 16);
 		k--;
 	}
-	vector<ENEMY_WALL> Wall(3);
-	Wall[0].set(671, 13 * 16);
-	Wall[1].set(671, 12 * 16);
-	Wall[2].set(671, 11 * 16);
-
+	vector<ENEMY_WALL> Wall(1);
+	/*Wall[0].set(671, 15 * 16);*/
+	Texture bg;
+	bg.loadFromFile("Backgroung2.jpg");
+	Sprite background(bg);
 	Sprite tile(tileSet);
+	Sprite tile2(tileSet2);
+	background.setColor(Color::Cyan);
 	tile.setColor(Color::Cyan);
+	tile2.setColor(Color::Cyan);
 
 	Clock clock;
-
+	sf::Music music;
+	if (!music.openFromFile("Clubstep.ogg"))
+		return -1;
+	music.play();
 	while (window.isOpen())
-	{
-
+	{	
+		
 		float time = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
 
@@ -272,8 +284,8 @@ int main()
 
 		if (true)    Mario.dx = 0.1;
 
-		if (Keyboard::isKeyPressed(Keyboard::Space))	if (Mario.onGround) { Mario.dy = -0.20; Mario.onGround = false; }
-		if (Keyboard::isKeyPressed(Keyboard::Up))	if (Mario.onGround) { Mario.dy = -0.20; Mario.onGround = false;  }
+		if (Keyboard::isKeyPressed(Keyboard::Space))	if (Mario.onGround) { Mario.dy = -0.19; Mario.onGround = false; }
+		if (Keyboard::isKeyPressed(Keyboard::Up))	if (Mario.onGround) { Mario.dy = -0.19; Mario.onGround = false; }
 
 
 
@@ -300,53 +312,72 @@ int main()
 		{
 			if (Mario.rect.intersects(EN[i].rect))
 			{
-				
+
 				cout << "Game Over" << endl;
 				window.close();
 				system("pause");
 				return 1;
 			}
 		}
-		
-		
-
-
-		if (Mario.rect.left > 200) offsetX = Mario.rect.left - 200;         
 
 
 
 
-		window.clear(Color(107, 140, 255));
+		if (Mario.rect.left > 200) offsetX = Mario.rect.left - 200;
 
+
+
+
+		window.clear(Color::White);
+		window.draw(background);
 		for (int i = 0; i < H; i++)
 			for (int j = 0; j < W; j++)
 			{
-				if (TileMap[i][j] == 'P')  tile.setTextureRect(IntRect(0, 0, 16, 16));
-
-				if (TileMap[i][j] == 'k')  tile.setTextureRect(IntRect(143, 112, 16, 16));
-
-				if (TileMap[i][j] == 'c')  tile.setTextureRect(IntRect(143 - 16, 112, 16, 16));
-
-				if (TileMap[i][j] == 't')  tile.setTextureRect(IntRect(0, 47, 32, 95 - 47));
-
-				if (TileMap[i][j] == 'g')  tile.setTextureRect(IntRect(0, 16 * 9 - 5, 3 * 16, 16 * 2 + 5));
-
-				if (TileMap[i][j] == 'G')  tile.setTextureRect(IntRect(0, 0, 16, 16));
-
-				if (TileMap[i][j] == 'd')  tile.setTextureRect(IntRect(0, 106, 74, 127 - 106));
-
-				if (TileMap[i][j] == 'w')  tile.setTextureRect(IntRect(99, 224, 140 - 99, 255 - 224));
-
-				if (TileMap[i][j] == 'r')  tile.setTextureRect(IntRect(0, 0, 16, 16));
-
-				if ((TileMap[i][j] == ' ') || (TileMap[i][j] == '0')) continue;
-
+				if (TileMap[i][j] == 'P') { tile.setTextureRect(IntRect(0, 0, 16, 16)); 
 				tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
 				window.draw(tile);
+				}
+
+				if (TileMap[i][j] == 'k') {
+					tile2.setTextureRect(IntRect(0, 0, 16, 16));
+					tile2.setPosition(j * 16 - offsetX, i * 16 - offsetY);
+					window.draw(tile2);
+				}
+
+				if (TileMap[i][j] == 'c')  {tile.setTextureRect(IntRect(0, 0, 16, 16));
+				tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
+				window.draw(tile);
+				}
+				if (TileMap[i][j] == 't')  {tile.setTextureRect(IntRect(0, 0, 16, 16));
+				tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
+				window.draw(tile);
+				}
+				if (TileMap[i][j] == 'g')  {tile.setTextureRect(IntRect(0, 0, 16, 16));
+				tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
+				window.draw(tile);
+				}
+				if (TileMap[i][j] == 'G')  {tile.setTextureRect(IntRect(0, 0, 16, 16));
+				tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
+				window.draw(tile);
+				}
+				if (TileMap[i][j] == 'd')  {tile.setTextureRect(IntRect(0, 0, 16, 16));
+				tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
+				window.draw(tile);
+				}
+				if (TileMap[i][j] == 'w')  {tile.setTextureRect(IntRect(0, 0, 16, 16));
+				tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
+				window.draw(tile);
+				}
+				if (TileMap[i][j] == 'r')  {tile.setTextureRect(IntRect(0, 0, 16, 16));
+				tile.setPosition(j * 16 - offsetX, i * 16 - offsetY);
+				window.draw(tile);
+				}
+				if ((TileMap[i][j] == ' ') || (TileMap[i][j] == '0')) continue;
+
 			}
 
 
-
+		
 		window.draw(Mario.sprite);
 		for (int i = 0; i < EN.size(); i++)
 		{
