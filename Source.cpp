@@ -311,19 +311,19 @@ int main()
 		k--;
 	}
 	vector<ENEMY> EN3(2);
-	for (int i = 0, k = 56; i < EN1.size(); i++)
+	for (int i = 0, k = 56; i < EN3.size(); i++)
 	{
 		EN3[i].set(Spike, k * 16, 15 * 16);
 		k--;
 	}
 	vector<ENEMY> EN4(2);
-	for (int i = 0, k = 69; i < EN1.size(); i++)
+	for (int i = 0, k = 69; i < EN4.size(); i++)
 	{
 		EN4[i].set(Spike, k * 16, 15 * 16);
 		k--;
 	}
-	vector<ENEMY_SP> EN5(2);
-	for (int i = 0, k = 62; i < EN1.size(); i++)
+	vector<ENEMY_SP> EN5(3);
+	for (int i = 0, k = 62; i < EN5.size(); i++)
 	{
 		EN5[i].set(Small_spike, k * 16, 15.5 * 16);
 		k--;
