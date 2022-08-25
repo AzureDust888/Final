@@ -549,13 +549,13 @@ int main()
 		k--;
 	}
 	vector<Jump_boost> J2(1);
-	for (int i = 0, k = 222; i < J2.size(); i++)
+	for (int i = 0, k = 223; i < J2.size(); i++)
 	{
 		J2[i].set(Jump, k * 16, 15.5 * 16);
 		k--;
 	}
 	vector<ENEMY> EN23(4);
-	for (int i = 0, k = 226; i < EN23.size(); i++)
+	for (int i = 0, k = 227; i < EN23.size(); i++)
 	{
 		EN23[i].set(Spike, k * 16, 15 * 16);
 		k--;
