@@ -495,47 +495,47 @@ int main()
 		k--;
 	}
 	vector<ENEMY> EN16(1);
-	/*for (int i = 0, k = 184; i < EN16.size(); i++)
+	for (int i = 0, k = 184; i < EN16.size(); i++)
 	{
 		EN16[i].set(Spike, k * 16, 11 * 16);
 		k--;
-	}*/
+	}
 	vector<ENEMY> EN17(1);
-	/*for (int i = 0, k = 185; i < EN17.size(); i++)
+	for (int i = 0, k = 185; i < EN17.size(); i++)
 	{
 		EN17[i].set(Spike, k * 16, 12 * 16);
 		k--;
-	}*/
+	}
 	vector<ENEMY> EN18(1);
-	/*for (int i = 0, k = 194; i < EN18.size(); i++)
+	for (int i = 0, k = 194; i < EN18.size(); i++)
 	{
 		EN18[i].set(Spike, k * 16, 12 * 16);
 		k--;
-	}*/
+	}
 	vector<ENEMY> EN19(1);
-	/*for (int i = 0, k = 201; i < EN19.size(); i++)
+	for (int i = 0, k = 201; i < EN19.size(); i++)
 	{
 		EN19[i].set(Spike, k * 16, 13 * 16);
 		k--;
-	}*/
+	}
 	vector<ENEMY> EN20(1);
-	/*for (int i = 0, k = 216; i < EN20.size(); i++)
+	for (int i = 0, k = 216; i < EN20.size(); i++)
 	{
 		EN20[i].set(Spike, k * 16, 9 * 16);
 		k--;
-	}*/
+	}
 	vector<ENEMY_SP> EN21(29);
-	/*for (int i = 0, k = 215; i < EN21.size(); i++)
+	for (int i = 0, k = 215; i < EN21.size(); i++)
 	{
 		EN21[i].set(Small_spike, k * 16, 15.5 * 16);
 		k--;
-	}*/
+	}
 	vector<ENEMY> EN22(3);
-	/*for (int i = 0, k = 219; i < EN22.size(); i++)
+	for (int i = 0, k = 219; i < EN22.size(); i++)
 	{
 		EN22[i].set(Spike, k * 16, 15 * 16);
 		k--;
-	}*/
+	}
 	vector<ENEMY_WALL> Wall(1);
 	//Wall[0].set(671, 15 * 16);
 
@@ -545,14 +545,13 @@ int main()
 	tile2.setColor(Color::Cyan);
 	Sprite tile3(tileSet3);
 	tile3.setColor(Color::Cyan);
-
 	Clock clock;
 	Clock cl;
 	while (window.isOpen())
 	{
 		/*cout << cl.getElapsedTime().asSeconds() << endl;*/
 
-		if (cl.getElapsedTime().asSeconds() <= 12 && cl.getElapsedTime().asSeconds() >= 11.684)
+		if (cl.getElapsedTime().asSeconds() <= 12 && cl.getElapsedTime().asSeconds() >= 11.674)
 		{
 			background.setColor(Color::Magenta);
 			tile.setColor(Color::Magenta);
@@ -713,6 +712,7 @@ int main()
 				gover.setPosition(100, 15);
 				window.draw(gover);
 				window.display();
+				music.pause();
 				goto breakpoint;;
 			}
 		}
@@ -726,6 +726,7 @@ int main()
 				gover.setPosition(100, 15);
 				window.draw(gover);
 				window.display();
+				music.pause();
 				goto breakpoint;
 			}
 		}
@@ -739,6 +740,7 @@ int main()
 				gover.setPosition(100, 15);
 				window.draw(gover);
 				window.display();
+				music.pause();
 				goto breakpoint;
 			}
 		}
@@ -752,6 +754,7 @@ int main()
 				gover.setPosition(100, 15);
 				window.draw(gover);
 				window.display();
+				music.pause();
 				goto breakpoint;
 			}
 		}
@@ -765,6 +768,7 @@ int main()
 				gover.setPosition(100, 15);
 				window.draw(gover);
 				window.display();
+				music.pause();
 				goto breakpoint;
 			}
 		}
@@ -778,6 +782,7 @@ int main()
 				gover.setPosition(100, 15);
 				window.draw(gover);
 				window.display();
+				music.pause();
 				goto breakpoint;
 			}
 		}
