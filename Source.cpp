@@ -813,6 +813,7 @@ int main()
 			ending.setPosition(200, 125);
 			window.draw(ending);
 			window.display();
+			music.pause();
 			goto breakpoint;
 		}
 		for (int i = 0; i < J1.size(); i++)
@@ -832,6 +833,7 @@ int main()
 				gover.setPosition(100, 15);
 				window.draw(gover);
 				window.display();
+				music.pause();
 				goto breakpoint;
 			}
 		}
