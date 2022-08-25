@@ -12,29 +12,28 @@ float offsetX = 0, offsetY = 0;
 
 
 const int H = 19;
-const int W = 484;
-
+const int W = 384;
 
 String TileMap[H] = {
-"000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-"0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 0",
-"0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 0",
-"0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 0",
-"0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 0",
-"0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 0",
-"0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 0",
-"0                                                                                                                                      1                                                                                                                                                                                                                                                                                                                                                          0",
-"0                                                                                                                                      c                                                                                                                                                                                                                                                                                                                                                          0",
-"0                                                                                                                                  c                                                                                     1                                              kc                                                                                                                                                                                                                        0",
-"0                                                                                                                              c                cc       1111        cc       1111                                       c                                          k   k  cc                                                                                                                                                                                                                     0",
-"0                                                                                                                          c                   1111      cccc       1111      cccc      1                            c                                          k   k   k     cc                                                                                                                                                                                                                  0",
-"0                                                                                                                      c               rrrrrrrrrrrrrrr          rrrrrrrrrrr          rrrr1         1             c                                          k   k   k   k        cc                                                                                                                                                                                                               0",
-"0                                                                  r                                               c                     kkkkkkkkkkkkrrrrrrrrrrrrkkkkkkkkkrrrrrrrrrrrrkkkrrrr  ccccc      1  c                                          k   k   k   k   k           cc                                cc                                                                                                                                                                          0",
-"0                                                              r   k                         11       rrrrrrrrrr                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk        ccccccc                                         k   k   k   k   k   k              cc                 cc      cc                                                                                                                                                                              0",
-"0                              1      11      1        11rrr   k   k11                  1rrrrrrrrrr   kkkkkkkkkk                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk                             r111  1111            1k   k   k   k   k   k   k                 rr1        11r     rrr          rrr11                                                                                                                                                                   0",
-"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP ",
-"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP ",
-"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP ",
+"00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+"0                                                                                                                                                                                                                                                                                                                                                                                             0",
+"0                                                                                                                                                                                                                                                                                                                                                                                             0",
+"0                                                                                                                                                                                                                                                                                                                                                                                             0",
+"0                                                                                                                                                                                                                                                                                                                                                                                             0",
+"0                                                                                                                                                                                                                                                                                                                                                                                             0",
+"0                                                                                                                                                                                                                                                                                                                                                                                             0",
+"0                                                                                                                                      1                                                                                                                                                                                                                                                      0",
+"0                                                                                                                                      c                                                                                                                                                                                                                                                      0",
+"0                                                                                                                                  c                                                                                     1                                              kc                                                                                         1                          0",
+"0                                                                                                                              c                cc       1111        cc       1111                                       c                                          k   k  cc                                                                                      c                          0",
+"0                                                                                                                          c                   1111      cccc       1111      cccc      1                            c                                          k   k   k     cc                                                                               c                              0",
+"0                                                                                                                      c               rrrrrrrrrrrrrrr          rrrrrrrrrrr          rrrr1         1             c                                          k   k   k   k        cc                                                                        c     c                            0",
+"0                                                                  r                                               c                     kkkkkkkkkkkkrrrrrrrrrrrrkkkkkkkkkrrrrrrrrrrrrkkkrrrr  ccccc      1  c                                          k   k   k   k   k           cc                                cc                               c           c                          0",
+"0                                                              r   k                         11       rrrrrrrrrr                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk        ccccccc                                         k   k   k   k   k   k              cc                 cc      cc                               c                 c                        0",
+"0                              1      11      1        11rrr   k   k11                  1rrrrrrrrrr   kkkkkkkkkk                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk                             r111  1111            1k   k   k   k   k   k   k                 rr1        11r     rrr          rrr11            1cccc                       c1                     0",
+"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP ",
+"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP ",
+"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP ",
 };
 
 
@@ -380,7 +379,7 @@ int main()
 	Texture portal;
 	portal.loadFromFile("Portal.png");
 	Portal P;
-	P.set(portal, 16 * 481, 1);
+	P.set(portal, 16 * 381, 1);
 
 	Texture GameOver;
 	GameOver.loadFromFile("GameOVER.png");
@@ -550,13 +549,13 @@ int main()
 		k--;
 	}
 	vector<Jump_boost> J2(1);
-	for (int i = 0, k = 223; i < J2.size(); i++)
+	for (int i = 0, k = 222; i < J2.size(); i++)
 	{
 		J2[i].set(Jump, k * 16, 15.5 * 16);
 		k--;
 	}
 	vector<ENEMY> EN23(4);
-	for (int i = 0, k = 227; i < EN23.size(); i++)
+	for (int i = 0, k = 226; i < EN23.size(); i++)
 	{
 		EN23[i].set(Spike, k * 16, 15 * 16);
 		k--;
@@ -615,6 +614,49 @@ int main()
 		EN32[i].set(Spike, k * 16, 15 * 16);
 		k--;
 	}
+	vector<ENEMY_SP> EN33(5);
+	for (int i = 0, k = 300; i < EN33.size(); i++)
+	{
+		EN33[i].set(Small_spike, k * 16, 15.5 * 16);
+		k--;
+	}
+	vector<ENEMY_SP> EN34(10);
+	for (int i = 0, k = 313; i < EN34.size(); i++)
+	{
+		EN34[i].set(Small_spike, k * 16, 15.5 * 16);
+		k--;
+	}
+	vector<ENEMY> EN35(2);
+	for (int i = 0, k = 318; i < EN35.size(); i++)
+	{
+		EN35[i].set(Spike, k * 16, 15 * 16);
+		k--;
+	}
+	vector<ENEMY> EN37(1);
+	for (int i = 0, k = 331; i < EN37.size(); i++)
+	{
+		EN37[i].set(Spike, k * 16, 15 * 16);
+		k--;
+	}
+	vector<ENEMY_SP> EN36(27);
+	for (int i = 0, k = 358; i < EN36.size(); i++)
+	{
+		EN36[i].set(Small_spike, k * 16, 15.5 * 16);
+		k--;
+	}
+	vector<ENEMY> EN38(1);
+	for (int i = 0, k = 355; i < EN38.size(); i++)
+	{
+		EN38[i].set(Spike, k * 16, 9 * 16);
+		k--;
+	}
+	vector<ENEMY> EN39(1);
+	for (int i = 0, k = 360; i < EN39.size(); i++)
+	{
+		EN39[i].set(Spike, k * 16, 15 * 16);
+		k--;
+	}
+
 	vector<ENEMY_WALL> Wall(1);
 	//Wall[0].set(671, 15 * 16);
 
@@ -806,7 +848,34 @@ int main()
 		{
 			EN32[i].update(time);
 		}
-
+		for (int i = 0; i < EN33.size(); i++)
+		{
+			EN33[i].update(time);
+		}
+		for (int i = 0; i < EN34.size(); i++)
+		{
+			EN34[i].update(time);
+		}
+		for (int i = 0; i < EN35.size(); i++)
+		{
+			EN35[i].update(time);
+		}
+		for (int i = 0; i < EN36.size(); i++)
+		{
+			EN36[i].update(time);
+		}
+		for (int i = 0; i < EN37.size(); i++)
+		{
+			EN37[i].update(time);
+		}
+		for (int i = 0; i < EN38.size(); i++)
+		{
+			EN38[i].update(time);
+		}
+		for (int i = 0; i < EN39.size(); i++)
+		{
+			EN39[i].update(time);
+		}
 		for (int i = 0; i < Wall.size(); i++)
 		{
 			Wall[i].update(time);
@@ -1148,7 +1217,34 @@ int main()
 		{
 			window.draw(EN32[i].sprite);
 		}
-
+		for (int i = 0; i < EN33.size(); i++)
+		{
+			window.draw(EN33[i].sprite);
+		}
+		for (int i = 0; i < EN34.size(); i++)
+		{
+			window.draw(EN34[i].sprite);
+		}
+		for (int i = 0; i < EN35.size(); i++)
+		{
+			window.draw(EN35[i].sprite);
+		}
+		for (int i = 0; i < EN36.size(); i++)
+		{
+			window.draw(EN36[i].sprite);
+		}
+		for (int i = 0; i < EN37.size(); i++)
+		{
+			window.draw(EN37[i].sprite);
+		}
+		for (int i = 0; i < EN38.size(); i++)
+		{
+			window.draw(EN38[i].sprite);
+		}
+		for (int i = 0; i < EN39.size(); i++)
+		{
+			window.draw(EN39[i].sprite);
+		}
 		for (int i = 0; i < Wall.size(); i++)
 		{
 			window.draw(Wall[i].sprite);
