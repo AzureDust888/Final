@@ -353,7 +353,7 @@ int main()
 	music.play();
 
 
-	RenderWindow window(VideoMode(1000, 300), "SFML works!");
+	RenderWindow window(VideoMode(1000, 300), "Geometry Dash");
 
     Texture tileSet;
 	tileSet.loadFromFile("Tile.jpg");
