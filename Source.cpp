@@ -2,6 +2,7 @@
 #include <SFML/Audio.hpp>
 #include <iostream>
 #include <thread>
+#include <chrono>
 using namespace std;
 
 using namespace sf;
@@ -38,7 +39,53 @@ String TileMap[H] = {
 
 
 
+class END_GAME
+{
 
+public:
+	float dx, dy;
+	FloatRect rect;
+	Sprite sprite;
+	float currentFrame;
+
+
+	void set(Texture& image, int x, int y)
+	{
+		sprite.setTexture(image);
+		sprite.setColor(Color::Red);
+		rect = FloatRect(x, y, 14, 14);
+
+		dx = 0.05;
+		currentFrame = 0;
+	}
+
+	void update(float time)
+	{
+		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
+
+	}
+
+
+	void Collision()
+	{
+
+		for (int i = rect.top / 16; i < (rect.top + rect.height) / 16; i++)
+			for (int j = rect.left / 16; j < (rect.left + rect.width) / 16; j++)
+				if ((TileMap[i][j] == 'P') || (TileMap[i][j] == '0'))
+				{
+					if (dx > 0)
+					{
+						rect.left = j * 16 - rect.width; dx *= -1;
+					}
+					else if (dx < 0)
+					{
+						rect.left = j * 16 + 16;  dx *= -1;
+					}
+
+				}
+	}
+
+};
 class PLAYER {
 
 public:
@@ -52,18 +99,16 @@ public:
 	{
 
 		sprite.setTexture(image);
-		rect = FloatRect(100, 180, 16, 16);
-
+		rect = FloatRect(30, 240, 16, 16);
+		sprite.setOrigin(0, 0);
 		dx = dy = 0.1;
 		currentFrame = 0;
 	}
-
-
 	void update(float time)
 	{
 
 		rect.left += dx * time;
-		Collision(0);
+		Collision(0);   
 
 
 		if (!onGround) dy = dy + 0.000485 * time;
@@ -71,10 +116,10 @@ public:
 		onGround = false;
 		Collision(1);
 
-
 		currentFrame += time * 0.005;
 		if (currentFrame > 3) currentFrame -= 3;
 		sprite.setRotation(0);
+		/*sprite.setOrigin(8.5, 0);*/
 		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
 		dx = 0;
 	}
@@ -94,9 +139,8 @@ public:
 
 		currentFrame += time * 0.005;
 		if (currentFrame > 3) currentFrame -= 3;
-		sprite.setOrigin(8.5, 8.5);
-		if (!onGround) { sprite.rotate(3); }
-		else { sprite.rotate(0); }
+		if (!onGround) { sprite.setOrigin(8.5, 8.5); sprite.rotate(3); }
+		else { sprite.setOrigin(0, 0); sprite.rotate(0); }
 		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
 		/*auto tmp = sprite.getOrigin();
 		sprite.setOrigin(tmp);*/
@@ -280,6 +324,52 @@ public:
 
 };
 
+class ENEMY_WALL8
+{
+
+public:
+	float dx, dy;
+	FloatRect rect;
+	Sprite sprite;
+	float currentFrame;
+
+
+	void set(int x, int y)
+	{
+		sprite.setColor(Color::Red);
+		rect = FloatRect(x, y, 1, 7);
+
+		dx = 0.05;
+		currentFrame = 0;
+	}
+
+	void update(float time)
+	{
+		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
+
+	}
+
+
+	void Collision()
+	{
+
+		for (int i = rect.top / 16; i < (rect.top + rect.height) / 16; i++)
+			for (int j = rect.left / 16; j < (rect.left + rect.width) / 16; j++)
+				if ((TileMap[i][j] == 'P') || (TileMap[i][j] == '0'))
+				{
+					if (dx > 0)
+					{
+						rect.left = j * 16 - rect.width; dx *= -1;
+					}
+					else if (dx < 0)
+					{
+						rect.left = j * 16 + 16;  dx *= -1;
+					}
+
+				}
+	}
+
+};
 int main()
 {
 	sf::Music music;
@@ -303,10 +393,12 @@ int main()
 	Spike.loadFromFile("spike.png");
 
 	Texture Cube;
-	Cube.loadFromFile("CubeJ.jpg");
+	Cube.loadFromFile("CubeJ.png");
 
 	Texture GameOver;
-	GameOver.loadFromFile("name.png");
+	GameOver.loadFromFile("GameOVER.png");
+	Sprite gover;
+	gover.setTexture(GameOver);
 
 	Texture buildcube;
 	buildcube.loadFromFile("Tile.jpg");
@@ -470,10 +562,18 @@ int main()
 	tile3.setColor(Color::Cyan);
 
 	Clock clock;
-
+	Clock cl;
 	while (window.isOpen())
 	{
-		
+		/*cout << cl.getElapsedTime().asSeconds() << endl;*/
+
+		if (cl.getElapsedTime().asSeconds() <= 11.3 && cl.getElapsedTime().asSeconds() >= 11.266)
+		{
+			background.setColor(Color::Magenta);
+			tile.setColor(Color::Magenta);
+			tile2.setColor(Color::Magenta);
+			tile3.setColor(Color::Magenta);
+		}
 		float time = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
 
@@ -481,12 +581,6 @@ int main()
 
 		if (time > 20) time = 20;
 
-		Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == Event::Closed)
-				window.close();
-		}
 
 		if(true) Mario.dx = 0.1;
 		if (Keyboard::isKeyPressed(Keyboard::Space))	if (Mario.onGround) { Mario.dy = -0.19; Mario.onGround = false; }
@@ -496,10 +590,12 @@ int main()
 
 		if (Mario.onGround)
 		{
+			/**/
 			Mario.update(time);
 		}
 		else
 		{
+			
 			Mario.update2(time);
 		}
 		for (int i = 0; i < EN.size(); i++)
@@ -602,73 +698,105 @@ int main()
 		{
 			if (Mario.rect.intersects(Wall[i].rect))
 			{
-				cout << "Game Over" << endl;
-				window.close();
-				system("pause");
-				return 1;
+				window.clear(Color::White);
+				background.setColor(Color::Red);
+				window.draw(background);
+				gover.setPosition(100, 15);
+				window.draw(gover);
+				window.display();
+				goto breakpoint;
 			}
 		}
 		for (int i = 0; i < EN.size(); i++)
 		{
 			if (Mario.rect.intersects(EN[i].rect) || Mario.rect.intersects(EN2[i].rect) || Mario.rect.intersects(EN7[i].rect) || Mario.rect.intersects(EN11[i].rect) || Mario.rect.intersects(EN16[i].rect) || Mario.rect.intersects(EN17[i].rect) || Mario.rect.intersects(EN18[i].rect) || Mario.rect.intersects(EN19[i].rect) || Mario.rect.intersects(EN20[i].rect))
 			{
-				cout << "Game Over" << endl;
-				window.close();
-				system("pause");
-				return 1;
+				window.clear(Color::White);
+				background.setColor(Color::Red);
+				window.draw(background);
+				gover.setPosition(100, 15);
+				window.draw(gover);
+				window.display();
+				goto breakpoint;;
 			}
 		}
 		for (int i = 0; i < EN1.size(); i++)
 		{
 			if (Mario.rect.intersects(EN1[i].rect) || Mario.rect.intersects(EN3[i].rect) || Mario.rect.intersects(EN4[i].rect) || Mario.rect.intersects(EN8[i].rect))
 			{
-				cout << "Game Over" << endl;
-				window.close();
-				system("pause");
-				return 1;
+				window.clear(Color::White);
+				background.setColor(Color::Red);
+				window.draw(background);
+				gover.setPosition(100, 15);
+				window.draw(gover);
+				window.display();
+				goto breakpoint;
 			}
 		}
 		for (int i = 0; i < EN5.size(); i++)
 		{
 			if (Mario.rect.intersects(EN5[i].rect) || Mario.rect.intersects(EN6[i].rect) || Mario.rect.intersects(EN9[i].rect) || Mario.rect.intersects(EN22[i].rect))
 			{
-				cout << "Game Over" << endl;
-				window.close();
-				system("pause");
-				return 1;
+				window.clear(Color::White);
+				background.setColor(Color::Red);
+				window.draw(background);
+				gover.setPosition(100, 15);
+				window.draw(gover);
+				window.display();
+				goto breakpoint;
 			}
 		}
 		for (int i = 0; i < EN12.size(); i++)
 		{
 			if (Mario.rect.intersects(EN12[i].rect) || Mario.rect.intersects(EN13[i].rect) || Mario.rect.intersects(EN14[i].rect) || Mario.rect.intersects(EN15[i].rect))
 			{
-				cout << "Game Over" << endl;
-				window.close();
-				system("pause");
-				return 1;
+				window.clear(Color::White);
+				background.setColor(Color::Red);
+				window.draw(background);
+				gover.setPosition(100, 15);
+				window.draw(gover);
+				window.display();
+				goto breakpoint;
 			}
 		}
 		for (int i = 0; i < EN10.size(); i++)
 		{
 			if (Mario.rect.intersects(EN10[i].rect))
 			{
-				cout << "Game Over" << endl;
-				window.close();
-				system("pause");
-				return 1;
+				window.clear(Color::White);
+				background.setColor(Color::Red);
+				window.draw(background);
+				gover.setPosition(100, 15);
+				window.draw(gover);
+				window.display();
+				goto breakpoint;
 			}
 		}
 		for (int i = 0; i < EN21.size(); i++)
 		{
 			if (Mario.rect.intersects(EN21[i].rect))
 			{
-				cout << "Game Over" << endl;
-				window.close();
-				system("pause");
-				return 1;
+				window.clear(Color::White);
+				background.setColor(Color::Red);
+				window.draw(background);
+				gover.setPosition(100, 15);
+				window.draw(gover);
+				window.display();
+				goto breakpoint;
 			}
 		}
-
+		Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+				window.close();
+		}
+		if (1 == 0)
+		{
+		breakpoint:system("pause");
+			break;
+		}
+			
 
 
 
@@ -735,7 +863,7 @@ int main()
 			}
 
 
-
+		
 		window.draw(Mario.sprite);
 		for (int i = 0; i < EN.size(); i++)
 		{
@@ -835,5 +963,4 @@ int main()
 		}
 		window.display();
 	}
-
 }
