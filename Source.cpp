@@ -196,7 +196,7 @@ public:
 	{
 		sprite.setTexture(image);
 		sprite.setColor(Color::Red);
-		rect = FloatRect(x, y, 14, 14);
+		rect = FloatRect(x, y, 7, 7);
 
 		dx = 0.05;
 		currentFrame = 0;
