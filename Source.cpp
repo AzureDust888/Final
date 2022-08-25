@@ -1,6 +1,8 @@
-#include <SFML/Graphics.hpp>
+п»ї#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <iostream>
+#include <thread>
+#include <chrono>
 using namespace std;
 
 using namespace sf;
@@ -23,21 +25,67 @@ String TileMap[H] = {
 "0                                                                                                                                                                                                                                                                                                          0",
 "0                                                                                                                                      1                                                                                                                                                                   0",
 "0                                                                                                                                      c                                                                                                                                                                   0",
-"0                                                                                                                                  c                                                                                    1                                                                                  0",
-"0                                                                                                                              c                cc       1111        cc       1111                                      c                                                                                  0",
-"0                                                                                                                          c                   1111      cccc       1111      cccc      1                           c                                                                                      0",
-"0                                                                                                                      c               rrrrrrrrrrrrrrr          rrrrrrrrrrr          rrrr1        1             c                                                                                          0",
-"0                                                                  r                                               c                     kkkkkkkkkkkkrrrrrrrrrrrrkkkkkkkkkrrrrrrrrrrrrkkkrrrr  cccc      1  c                                                                                              0",
-"0                                                              r   k                         11       rrrrrrrrrr                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk        cccccc                                                                                                 0",
-"0                              1      11      1        11rrr   k   k11                  1rrrrrrrrrr   kkkkkkkkkk                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk                             r111                                                                               0",
-"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
-"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
-"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+"0                                                                                                                                  c                                                                                     1                                                                                  0",
+"0                                                                                                                              c                cc       1111        cc       1111                                       c                                                                                  0",
+"0                                                                                                                          c                   1111      cccc       1111      cccc      1                            c                                                                                      0",
+"0                                                                                                                      c               rrrrrrrrrrrrrrr          rrrrrrrrrrr          rrrr1         1             c                                                                                          0",
+"0                                                                  r                                               c                     kkkkkkkkkkkkrrrrrrrrrrrrkkkkkkkkkrrrrrrrrrrrrkkkrrrr  ccccc      1  c                                                                                              0",
+"0                                                              r   k                         11       rrrrrrrrrr                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk        ccccccc                                                                                                 0",
+"0                              1      11      1        11rrr   k   k11                  1rrrrrrrrrr   kkkkkkkkkk                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk                              r111                                                                               0",
+"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP ",
+"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP ",
+"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP ",
 };
 
 
 
+class END_GAME
+{
 
+public:
+	float dx, dy;
+	FloatRect rect;
+	Sprite sprite;
+	float currentFrame;
+
+
+	void set(Texture& image, int x, int y)
+	{
+		sprite.setTexture(image);
+		sprite.setColor(Color::Red);
+		rect = FloatRect(x, y, 14, 14);
+
+		dx = 0.05;
+		currentFrame = 0;
+	}
+
+	void update(float time)
+	{
+		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
+
+	}
+
+
+	void Collision()
+	{
+
+		for (int i = rect.top / 16; i < (rect.top + rect.height) / 16; i++)
+			for (int j = rect.left / 16; j < (rect.left + rect.width) / 16; j++)
+				if ((TileMap[i][j] == 'P') || (TileMap[i][j] == '0'))
+				{
+					if (dx > 0)
+					{
+						rect.left = j * 16 - rect.width; dx *= -1;
+					}
+					else if (dx < 0)
+					{
+						rect.left = j * 16 + 16;  dx *= -1;
+					}
+
+				}
+	}
+
+};
 class PLAYER {
 
 public:
@@ -47,17 +95,15 @@ public:
 	bool onGround;
 	Sprite sprite;
 	float currentFrame;
-
 	PLAYER(Texture& image)
 	{
-		sprite.setTexture(image);
-		rect = FloatRect(100, 180, 16, 16);
 
+		sprite.setTexture(image);
+		rect = FloatRect(30, 240, 16, 16);
+		sprite.setOrigin(0, 0);
 		dx = dy = 0.1;
 		currentFrame = 0;
 	}
-
-
 	void update(float time)
 	{
 
@@ -65,7 +111,27 @@ public:
 		Collision(0);
 
 
-		if (!onGround) dy = dy + 0.0005 * time;
+		if (!onGround) dy = dy + 0.000485 * time;
+		rect.top += dy * time;
+		onGround = false;
+		Collision(1);
+
+		currentFrame += time * 0.005;
+		if (currentFrame > 3) currentFrame -= 3;
+		sprite.setRotation(0);
+		/*sprite.setOrigin(8.5, 0);*/
+		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
+		dx = 0;
+	}
+
+	void update2(float time)
+	{
+
+		rect.left += dx * time;
+		Collision(0);
+
+
+		if (!onGround) dy = dy + 0.000485 * time;
 		rect.top += dy * time;
 		onGround = false;
 		Collision(1);
@@ -73,18 +139,14 @@ public:
 
 		currentFrame += time * 0.005;
 		if (currentFrame > 3) currentFrame -= 3;
-
-
-		/*if (dx > 0) sprite.setTextureRect(IntRect(112 + 31 * int(currentFrame), 144, 16, 16));
-		if (dx < 0) sprite.setTextureRect(IntRect(112 + 31 * int(currentFrame) + 16, 144, -16, 16));*/
-
-
+		if (!onGround) { sprite.setOrigin(8.5, 8.5); sprite.rotate(3); }
+		else { sprite.setOrigin(0, 0); sprite.rotate(0); }
 		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
+		/*auto tmp = sprite.getOrigin();
+		sprite.setOrigin(tmp);*/
 
 		dx = 0;
 	}
-
-
 	void Collision(int num)
 	{
 
@@ -147,25 +209,6 @@ public:
 	}
 
 
-	void Collision()
-	{
-
-		for (int i = rect.top / 16; i < (rect.top + rect.height) / 16; i++)
-			for (int j = rect.left / 16; j < (rect.left + rect.width) / 16; j++)
-				if ((TileMap[i][j] == 'P') || (TileMap[i][j] == '0'))
-				{
-					if (dx > 0)
-					{
-						rect.left = j * 16 - rect.width; dx *= -1;
-					}
-					else if (dx < 0)
-					{
-						rect.left = j * 16 + 16;  dx *= -1;
-					}
-
-				}
-	}
-
 };
 
 class ENEMY_WALL
@@ -193,25 +236,6 @@ public:
 
 	}
 
-
-	void Collision()
-	{
-
-		for (int i = rect.top / 16; i < (rect.top + rect.height) / 16; i++)
-			for (int j = rect.left / 16; j < (rect.left + rect.width) / 16; j++)
-				if ((TileMap[i][j] == 'P') || (TileMap[i][j] == '0'))
-				{
-					if (dx > 0)
-					{
-						rect.left = j * 16 - rect.width; dx *= -1;
-					}
-					else if (dx < 0)
-					{
-						rect.left = j * 16 + 16;  dx *= -1;
-					}
-
-				}
-	}
 
 };
 
@@ -241,27 +265,86 @@ public:
 	}
 
 
-	void Collision()
+};
+
+class ENEMY_WALL8
+{
+
+public:
+	float dx, dy;
+	FloatRect rect;
+	Sprite sprite;
+	float currentFrame;
+
+
+	void set(int x, int y)
 	{
+		sprite.setColor(Color::Red);
+		rect = FloatRect(x, y, 1, 7);
 
-		for (int i = rect.top / 16; i < (rect.top + rect.height) / 16; i++)
-			for (int j = rect.left / 16; j < (rect.left + rect.width) / 16; j++)
-				if ((TileMap[i][j] == 'P') || (TileMap[i][j] == '0'))
-				{
-					if (dx > 0)
-					{
-						rect.left = j * 16 - rect.width; dx *= -1;
-					}
-					else if (dx < 0)
-					{
-						rect.left = j * 16 + 16;  dx *= -1;
-					}
+		dx = 0.05;
+		currentFrame = 0;
+	}
 
-				}
+	void update(float time)
+	{
+		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
+
 	}
 
 };
+class Jump_boost
+{
 
+public:
+	float dx, dy;
+	FloatRect rect;
+	Sprite sprite;
+	float currentFrame;
+
+
+	void set(Texture& image, int x, int y)
+	{
+
+		sprite.setTexture(image);
+		rect = FloatRect(x, y, 16, 8);
+
+		dx = 0.05;
+		currentFrame = 0;
+	}
+
+	void update(float time)
+	{
+		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
+
+	}
+};
+class Portal
+{
+
+public:
+	float dx, dy;
+	FloatRect rect;
+	Sprite sprite;
+	float currentFrame;
+
+
+	void set(Texture& image, int x, int y)
+	{
+
+		sprite.setTexture(image);
+		rect = FloatRect(x, y, 16, 16 * 16);
+
+		dx = 0.05;
+		currentFrame = 0;
+	}
+
+	void update(float time)
+	{
+		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
+
+	}
+};
 int main()
 {
 	/*sf::Music music;
@@ -270,7 +353,7 @@ int main()
 	music.play();*/
 
 
-	RenderWindow window(VideoMode(1000, 300), "SFML works!");
+	RenderWindow window(VideoMode(1000, 300), "Geometry Dash");
 
 	Texture tileSet;
 	tileSet.loadFromFile("Tile.jpg");
@@ -284,11 +367,21 @@ int main()
 	Texture Spike;
 	Spike.loadFromFile("spike.png");
 
+	Texture Jump;
+	Jump.loadFromFile("jump.png");
+
 	Texture Cube;
-	Cube.loadFromFile("CubeJ.jpg");
+	Cube.loadFromFile("CubeJ.png");
+
+	Texture portal;
+	portal.loadFromFile("Portal.png");
+	Portal P;
+	P.set(portal, 16 * 298, 1);
 
 	Texture GameOver;
-	GameOver.loadFromFile("Name.png");
+	GameOver.loadFromFile("GameOVER.png");
+	Sprite gover;
+	gover.setTexture(GameOver);
 
 	Texture buildcube;
 	buildcube.loadFromFile("Tile.jpg");
@@ -302,13 +395,19 @@ int main()
 	background.setColor(Color::Cyan);
 
 	PLAYER Mario(Cube);
+
+	vector<Jump_boost> J1(1);
+	for (int i = 0, k = 67; i < J1.size(); i++)
+	{
+		J1[i].set(Jump, k * 16, 12.5 * 16);
+		k--;
+	}
 	vector<ENEMY> EN(1);
 	for (int i = 0, k = 30; i < EN.size(); i++)
 	{
 		EN[i].set(Spike, k * 16, 15 * 16);
 		k--;
 	}
-
 	vector<ENEMY> EN1(2);
 	for (int i = 0, k = 39; i < EN1.size(); i++)
 	{
@@ -412,31 +511,31 @@ int main()
 		k--;
 	}
 	vector<ENEMY> EN18(1);
-	for (int i = 0, k = 194; i < EN18.size(); i++)
+	for (int i = 0, k = 195; i < EN18.size(); i++)
 	{
 		EN18[i].set(Spike, k * 16, 12 * 16);
 		k--;
 	}
 	vector<ENEMY> EN19(1);
-	for (int i = 0, k = 201; i < EN19.size(); i++)
+	for (int i = 0, k = 202; i < EN19.size(); i++)
 	{
 		EN19[i].set(Spike, k * 16, 13 * 16);
 		k--;
 	}
 	vector<ENEMY> EN20(1);
-	for (int i = 0, k = 216; i < EN20.size(); i++)
+	for (int i = 0, k = 217; i < EN20.size(); i++)
 	{
 		EN20[i].set(Spike, k * 16, 9 * 16);
 		k--;
 	}
 	vector<ENEMY_SP> EN21(29);
-	for (int i = 0, k = 215; i < EN21.size(); i++)
+	for (int i = 0, k = 216; i < EN21.size(); i++)
 	{
 		EN21[i].set(Small_spike, k * 16, 15.5 * 16);
 		k--;
 	}
 	vector<ENEMY> EN22(3);
-	for (int i = 0, k = 219; i < EN22.size(); i++)
+	for (int i = 0, k = 220; i < EN22.size(); i++)
 	{
 		EN22[i].set(Spike, k * 16, 15 * 16);
 		k--;
@@ -450,35 +549,47 @@ int main()
 	tile2.setColor(Color::Cyan);
 	Sprite tile3(tileSet3);
 	tile3.setColor(Color::Cyan);
-
 	Clock clock;
-
+	Clock cl;
 	while (window.isOpen())
 	{
+		/*cout << cl.getElapsedTime().asSeconds() << endl;*/
 
+		if (cl.getElapsedTime().asSeconds() <= 12 && cl.getElapsedTime().asSeconds() >= 11.674)
+		{
+			background.setColor(Color::Magenta);
+			tile.setColor(Color::Magenta);
+			tile2.setColor(Color::Magenta);
+			tile3.setColor(Color::Magenta);
+		}
 		float time = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
 
-		time = time / 550;  // здесь регулируем скорость игры
+		time = time / 550;  // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 
 		if (time > 20) time = 20;
 
-		Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == Event::Closed)
-				window.close();
-		}
 
-		//if (Keyboard::isKeyPressed(Keyboard::Left))    Mario.dx = -0.1;
-		//if (Keyboard::isKeyPressed(Keyboard::Right))    Mario.dx = 0.1;
-		if(true) Mario.dx = 0.1;
+		if (true) Mario.dx = 0.1;
 		if (Keyboard::isKeyPressed(Keyboard::Space))	if (Mario.onGround) { Mario.dy = -0.19; Mario.onGround = false; }
 		if (Keyboard::isKeyPressed(Keyboard::Up))	if (Mario.onGround) { Mario.dy = -0.19; Mario.onGround = false; }
 
 
+		P.update(time);
+		if (Mario.onGround)
+		{
+			/**/
+			Mario.update(time);
+		}
+		else
+		{
 
-		Mario.update(time);
+			Mario.update2(time);
+		}
+		for (int i = 0; i < J1.size(); i++)
+		{
+			J1[i].update(time);
+		}
 		for (int i = 0; i < EN.size(); i++)
 		{
 			EN[i].update(time);
@@ -575,81 +686,130 @@ int main()
 		{
 			Wall[i].update(time);
 		}
-		for (int i = 0; i < Wall.size(); i++)
+		if (Mario.rect.intersects(P.rect))
+		{
+			window.clear(Color::White);
+			background.setColor(Color::Green);
+			window.draw(background);
+			gover.setPosition(100, 15);
+			window.draw(gover);
+			window.display();
+			goto breakpoint;
+		}
+		for (int i = 0; i < J1.size(); i++)
+		{
+			if (Mario.rect.intersects(J1[i].rect))
+			{
+				Mario.dy = -0.27;
+			}
+		}
+		/*for (int i = 0; i < Wall.size(); i++)
 		{
 			if (Mario.rect.intersects(Wall[i].rect))
 			{
-				cout << "Game Over" << endl;
-				window.close();
-				system("pause");
-				return 1;
+				window.clear(Color::White);
+				background.setColor(Color::Red);
+				window.draw(background);
+				gover.setPosition(100, 15);
+				window.draw(gover);
+				window.display();
+				goto breakpoint;
 			}
 		}
 		for (int i = 0; i < EN.size(); i++)
 		{
-			if (Mario.rect.intersects(EN[i].rect) || Mario.rect.intersects(EN2[i].rect) || Mario.rect.intersects(EN7[i].rect) || Mario.rect.intersects(EN11[i].rect) || Mario.rect.intersects(EN16[i].rect) ||Mario.rect.intersects(EN17[i].rect) || Mario.rect.intersects(EN18[i].rect) || Mario.rect.intersects(EN19[i].rect) || Mario.rect.intersects(EN20[i].rect))
+			if (Mario.rect.intersects(EN[i].rect) || Mario.rect.intersects(EN2[i].rect) || Mario.rect.intersects(EN7[i].rect) || Mario.rect.intersects(EN11[i].rect) || Mario.rect.intersects(EN16[i].rect) || Mario.rect.intersects(EN17[i].rect) || Mario.rect.intersects(EN18[i].rect) || Mario.rect.intersects(EN19[i].rect) || Mario.rect.intersects(EN20[i].rect))
 			{
-
-				cout << "Game Over" << endl;
-				window.close();
-				system("pause");
-				return 1;
+				window.clear(Color::White);
+				background.setColor(Color::Red);
+				window.draw(background);
+				gover.setPosition(100, 15);
+				window.draw(gover);
+				window.display();
+				music.pause();
+				goto breakpoint;;
 			}
 		}
 		for (int i = 0; i < EN1.size(); i++)
 		{
 			if (Mario.rect.intersects(EN1[i].rect) || Mario.rect.intersects(EN3[i].rect) || Mario.rect.intersects(EN4[i].rect) || Mario.rect.intersects(EN8[i].rect))
 			{
-
-				cout << "Game Over" << endl;
-				window.close();
-				system("pause");
-				return 1;
+				window.clear(Color::White);
+				background.setColor(Color::Red);
+				window.draw(background);
+				gover.setPosition(100, 15);
+				window.draw(gover);
+				window.display();
+				music.pause();
+				goto breakpoint;
 			}
 		}
 		for (int i = 0; i < EN5.size(); i++)
 		{
 			if (Mario.rect.intersects(EN5[i].rect) || Mario.rect.intersects(EN6[i].rect) || Mario.rect.intersects(EN9[i].rect) || Mario.rect.intersects(EN22[i].rect))
 			{
-
-				cout << "Game Over" << endl;
-				window.close();
-				system("pause");
-				return 1;
+				window.clear(Color::White);
+				background.setColor(Color::Red);
+				window.draw(background);
+				gover.setPosition(100, 15);
+				window.draw(gover);
+				window.display();
+				music.pause();
+				goto breakpoint;
 			}
 		}
 		for (int i = 0; i < EN12.size(); i++)
 		{
 			if (Mario.rect.intersects(EN12[i].rect) || Mario.rect.intersects(EN13[i].rect) || Mario.rect.intersects(EN14[i].rect) || Mario.rect.intersects(EN15[i].rect))
 			{
-
-				cout << "Game Over" << endl;
-				window.close();
-				system("pause");
-				return 1;
+				window.clear(Color::White);
+				background.setColor(Color::Red);
+				window.draw(background);
+				gover.setPosition(100, 15);
+				window.draw(gover);
+				window.display();
+				music.pause();
+				goto breakpoint;
 			}
 		}
 		for (int i = 0; i < EN10.size(); i++)
 		{
 			if (Mario.rect.intersects(EN10[i].rect))
 			{
-
-				cout << "Game Over" << endl;
-				window.close();
-				system("pause");
-				return 1;
+				window.clear(Color::White);
+				background.setColor(Color::Red);
+				window.draw(background);
+				gover.setPosition(100, 15);
+				window.draw(gover);
+				window.display();
+				music.pause();
+				goto breakpoint;
 			}
 		}
 		for (int i = 0; i < EN21.size(); i++)
 		{
 			if (Mario.rect.intersects(EN21[i].rect))
 			{
-
-				cout << "Game Over" << endl;
-				window.close();
-				system("pause");
-				return 1;
+				window.clear(Color::White);
+				background.setColor(Color::Red);
+				window.draw(background);
+				gover.setPosition(100, 15);
+				window.draw(gover);
+				window.display();
+				music.pause();
+				goto breakpoint;
 			}
+		}*/
+		Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+				window.close();
+		}
+		if (1 == 0)
+		{
+		breakpoint:system("pause");
+			break;
 		}
 
 
@@ -816,7 +976,11 @@ int main()
 		{
 			window.draw(Wall[i].sprite);
 		}
+		for (int i = 0; i < J1.size(); i++)
+		{
+			window.draw(J1[i].sprite);
+		}
+		window.draw(P.sprite);
 		window.display();
 	}
-
 }
