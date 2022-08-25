@@ -470,9 +470,9 @@ int main()
 				window.close();
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::Left))    Mario.dx = -0.1;
-		if (Keyboard::isKeyPressed(Keyboard::Right))    Mario.dx = 0.1;
-		//if(true) Mario.dx = 0.1;
+		//if (Keyboard::isKeyPressed(Keyboard::Left))    Mario.dx = -0.1;
+		//if (Keyboard::isKeyPressed(Keyboard::Right))    Mario.dx = 0.1;
+		if(true) Mario.dx = 0.1;
 		if (Keyboard::isKeyPressed(Keyboard::Space))	if (Mario.onGround) { Mario.dy = -0.19; Mario.onGround = false; }
 		if (Keyboard::isKeyPressed(Keyboard::Up))	if (Mario.onGround) { Mario.dy = -0.19; Mario.onGround = false; }
 
