@@ -32,9 +32,9 @@ String TileMap[H] = {
 "0                                                                  r                                               c                     kkkkkkkkkkkkrrrrrrrrrrrrkkkkkkkkkrrrrrrrrrrrrkkkrrrr  ccccc      1  c                                          k   k   k   k   k           cc                                cc                                                                                                                                                                          0",
 "0                                                              r   k                         11       rrrrrrrrrr                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk        ccccccc                                         k   k   k   k   k   k              cc                 cc      cc                                                                                                                                                                              0",
 "0                              1      11      1        11rrr   k   k11                  1rrrrrrrrrr   kkkkkkkkkk                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk                             r111  1111            1k   k   k   k   k   k   k                 rr1        11r     rrr          rrr11                                                                                                                                                                   0",
-"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
-"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
-"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP ",
+"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP ",
+"PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP ",
 };
 
 
@@ -380,7 +380,7 @@ int main()
 	Texture portal;
 	portal.loadFromFile("Portal.png");
 	Portal P;
-	P.set(portal, 16 * 480, 1);
+	P.set(portal, 16 * 481, 1);
 
 	Texture GameOver;
 	GameOver.loadFromFile("GameOVER.png");
@@ -550,13 +550,13 @@ int main()
 		k--;
 	}
 	vector<Jump_boost> J2(1);
-	for (int i = 0, k = 222; i < J2.size(); i++)
+	for (int i = 0, k = 223; i < J2.size(); i++)
 	{
 		J2[i].set(Jump, k * 16, 15.5 * 16);
 		k--;
 	}
 	vector<ENEMY> EN23(4);
-	for (int i = 0, k = 226; i < EN23.size(); i++)
+	for (int i = 0, k = 227; i < EN23.size(); i++)
 	{
 		EN23[i].set(Spike, k * 16, 15 * 16);
 		k--;
@@ -636,6 +636,13 @@ int main()
 			tile.setColor(Color::Magenta);
 			tile2.setColor(Color::Magenta);
 			tile3.setColor(Color::Magenta);
+		}
+		if (Mario.rect.intersects(J2[0].rect))
+		{
+			background.setColor(Color(125, 168, 50));
+			tile.setColor(Color(125, 168, 50));
+			tile2.setColor(Color(125, 168, 50));
+			tile3.setColor(Color(125, 168, 50));
 		}
 		float time = clock.getElapsedTime().asMicroseconds();
 		clock.restart();
@@ -823,118 +830,118 @@ int main()
 				Mario.dy = -0.27;
 			}
 		}
-		/*for (int i = 0; i < Wall.size(); i++)   //Wall
-		{
-			if (Mario.rect.intersects(Wall[i].rect))
-			{
-				window.clear(Color::White);
-				background.setColor(Color::Red);
-				window.draw(background);
-				gover.setPosition(100, 15);
-				window.draw(gover);
-				window.display();
-				music.pause();
-				goto breakpoint;
-			}
-		}
-		for (int i = 0; i < EN.size(); i++)   //1sp
-		{
-			if (Mario.rect.intersects(EN[i].rect) || Mario.rect.intersects(EN2[i].rect) || Mario.rect.intersects(EN7[i].rect) || Mario.rect.intersects(EN11[i].rect) || Mario.rect.intersects(EN16[i].rect) || Mario.rect.intersects(EN17[i].rect) || Mario.rect.intersects(EN18[i].rect) || Mario.rect.intersects(EN19[i].rect) || Mario.rect.intersects(EN20[i].rect) || Mario.rect.intersects(EN24[i].rect))
-			{
-				window.clear(Color::White);
-				background.setColor(Color::Red);
-				window.draw(background);
-				gover.setPosition(100, 15);
-				window.draw(gover);
-				window.display();
-				music.pause();
-				goto breakpoint;;
-			}
-		}
-		for (int i = 0; i < EN1.size(); i++)   //2sp
-		{
-			if (Mario.rect.intersects(EN1[i].rect) || Mario.rect.intersects(EN3[i].rect) || Mario.rect.intersects(EN4[i].rect) || Mario.rect.intersects(EN8[i].rect) || Mario.rect.intersects(EN32[i].rect))
-			{
-				window.clear(Color::White);
-				background.setColor(Color::Red);
-				window.draw(background);
-				gover.setPosition(100, 15);
-				window.draw(gover);
-				window.display();
-				music.pause();
-				goto breakpoint;
-			}
-		}
-		for (int i = 0; i < EN5.size(); i++)   //3sp
-		{
-			if (Mario.rect.intersects(EN5[i].rect) || Mario.rect.intersects(EN6[i].rect) || Mario.rect.intersects(EN9[i].rect) || Mario.rect.intersects(EN22[i].rect) || Mario.rect.intersects(EN25[i].rect) || Mario.rect.intersects(EN26[i].rect) || Mario.rect.intersects(EN27[i].rect) || Mario.rect.intersects(EN28[i].rect) || Mario.rect.intersects(EN29[i].rect) || Mario.rect.intersects(EN30[i].rect))
-			{
-				window.clear(Color::White);
-				background.setColor(Color::Red);
-				window.draw(background);
-				gover.setPosition(100, 15);
-				window.draw(gover);
-				window.display();
-				music.pause();
-				goto breakpoint;
-			}
-		}
-		for (int i = 0; i < EN12.size(); i++)   //4sp
-		{
-			if (Mario.rect.intersects(EN12[i].rect) || Mario.rect.intersects(EN13[i].rect) || Mario.rect.intersects(EN14[i].rect) || Mario.rect.intersects(EN15[i].rect) || Mario.rect.intersects(EN23[i].rect))
-			{
-				window.clear(Color::White);
-				background.setColor(Color::Red);
-				window.draw(background);
-				gover.setPosition(100, 15);
-				window.draw(gover);
-				window.display();
-				music.pause();
-				goto breakpoint;
-			}
-		}
-		for (int i = 0; i < EN10.size(); i++)   //25sp
-		{
-			if (Mario.rect.intersects(EN10[i].rect))
-			{
-				window.clear(Color::White);
-				background.setColor(Color::Red);
-				window.draw(background);
-				gover.setPosition(100, 15);
-				window.draw(gover);
-				window.display();
-				music.pause();
-				goto breakpoint;
-			}
-		}
-		for (int i = 0; i < EN21.size(); i++)   //29sp
-		{
-			if (Mario.rect.intersects(EN21[i].rect))
-			{
-				window.clear(Color::White);
-				background.setColor(Color::Red);
-				window.draw(background);
-				gover.setPosition(100, 15);
-				window.draw(gover);
-				window.display();
-				music.pause();
-				goto breakpoint;
-			}
-		}
-		for (int i = 0; i < EN31.size(); i++)   //17sp
-		{
-			if (Mario.rect.intersects(EN31[i].rect))
-			{
-				window.clear(Color::White);
-				background.setColor(Color::Red);
-				window.draw(background);
-				gover.setPosition(100, 15);
-				window.draw(gover);
-				window.display();
-				music.pause();
-				goto breakpoint;
-			}
-		}*/
+		//for (int i = 0; i < Wall.size(); i++)   //Wall
+		//{
+		//	if (Mario.rect.intersects(Wall[i].rect))
+		//	{
+		//		window.clear(Color::White);
+		//		background.setColor(Color::Red);
+		//		window.draw(background);
+		//		gover.setPosition(100, 15);
+		//		window.draw(gover);
+		//		window.display();
+		//		music.pause();
+		//		goto breakpoint;
+		//	}
+		//}
+		//for (int i = 0; i < EN.size(); i++)   //1sp
+		//{
+		//	if (Mario.rect.intersects(EN[i].rect) || Mario.rect.intersects(EN2[i].rect) || Mario.rect.intersects(EN7[i].rect) || Mario.rect.intersects(EN11[i].rect) || Mario.rect.intersects(EN16[i].rect) || Mario.rect.intersects(EN17[i].rect) || Mario.rect.intersects(EN18[i].rect) || Mario.rect.intersects(EN19[i].rect) || Mario.rect.intersects(EN20[i].rect) || Mario.rect.intersects(EN24[i].rect))
+		//	{
+		//		window.clear(Color::White);
+		//		background.setColor(Color::Red);
+		//		window.draw(background);
+		//		gover.setPosition(100, 15);
+		//		window.draw(gover);
+		//		window.display();
+		//		music.pause();
+		//		goto breakpoint;;
+		//	}
+		//}
+		//for (int i = 0; i < EN1.size(); i++)   //2sp
+		//{
+		//	if (Mario.rect.intersects(EN1[i].rect) || Mario.rect.intersects(EN3[i].rect) || Mario.rect.intersects(EN4[i].rect) || Mario.rect.intersects(EN8[i].rect) || Mario.rect.intersects(EN32[i].rect))
+		//	{
+		//		window.clear(Color::White);
+		//		background.setColor(Color::Red);
+		//		window.draw(background);
+		//		gover.setPosition(100, 15);
+		//		window.draw(gover);
+		//		window.display();
+		//		music.pause();
+		//		goto breakpoint;
+		//	}
+		//}
+		//for (int i = 0; i < EN5.size(); i++)   //3sp
+		//{
+		//	if (Mario.rect.intersects(EN5[i].rect) || Mario.rect.intersects(EN6[i].rect) || Mario.rect.intersects(EN9[i].rect) || Mario.rect.intersects(EN22[i].rect) || Mario.rect.intersects(EN25[i].rect) || Mario.rect.intersects(EN26[i].rect) || Mario.rect.intersects(EN27[i].rect) || Mario.rect.intersects(EN28[i].rect) || Mario.rect.intersects(EN29[i].rect) || Mario.rect.intersects(EN30[i].rect))
+		//	{
+		//		window.clear(Color::White);
+		//		background.setColor(Color::Red);
+		//		window.draw(background);
+		//		gover.setPosition(100, 15);
+		//		window.draw(gover);
+		//		window.display();
+		//		music.pause();
+		//		goto breakpoint;
+		//	}
+		//}
+		//for (int i = 0; i < EN12.size(); i++)   //4sp
+		//{
+		//	if (Mario.rect.intersects(EN12[i].rect) || Mario.rect.intersects(EN13[i].rect) || Mario.rect.intersects(EN14[i].rect) || Mario.rect.intersects(EN15[i].rect) || Mario.rect.intersects(EN23[i].rect))
+		//	{
+		//		window.clear(Color::White);
+		//		background.setColor(Color::Red);
+		//		window.draw(background);
+		//		gover.setPosition(100, 15);
+		//		window.draw(gover);
+		//		window.display();
+		//		music.pause();
+		//		goto breakpoint;
+		//	}
+		//}
+		//for (int i = 0; i < EN10.size(); i++)   //25sp
+		//{
+		//	if (Mario.rect.intersects(EN10[i].rect))
+		//	{
+		//		window.clear(Color::White);
+		//		background.setColor(Color::Red);
+		//		window.draw(background);
+		//		gover.setPosition(100, 15);
+		//		window.draw(gover);
+		//		window.display();
+		//		music.pause();
+		//		goto breakpoint;
+		//	}
+		//}
+		//for (int i = 0; i < EN21.size(); i++)   //29sp
+		//{
+		//	if (Mario.rect.intersects(EN21[i].rect))
+		//	{
+		//		window.clear(Color::White);
+		//		background.setColor(Color::Red);
+		//		window.draw(background);
+		//		gover.setPosition(100, 15);
+		//		window.draw(gover);
+		//		window.display();
+		//		music.pause();
+		//		goto breakpoint;
+		//	}
+		//}
+		//for (int i = 0; i < EN31.size(); i++)   //17sp
+		//{
+		//	if (Mario.rect.intersects(EN31[i].rect))
+		//	{
+		//		window.clear(Color::White);
+		//		background.setColor(Color::Red);
+		//		window.draw(background);
+		//		gover.setPosition(100, 15);
+		//		window.draw(gover);
+		//		window.display();
+		//		music.pause();
+		//		goto breakpoint;
+		//	}
+		//}
 		Event event;
 		while (window.pollEvent(event))
 		{
