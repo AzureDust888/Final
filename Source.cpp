@@ -30,7 +30,7 @@ String TileMap[H] = {
 "0                                                                                                                          c                   1111      cccc       1111      cccc      1                           c                                                                                      0",
 "0                                                                                                                      c               rrrrrrrrrrrrrrr          rrrrrrrrrrr          rrrr1        1             c                                                                                          0",
 "0                                                                  r                                               c                     kkkkkkkkkkkkrrrrrrrrrrrrkkkkkkkkkrrrrrrrrrrrrkkkrrrr  cccc      1  c                                                                                              0",
-"0                     rrr                                      r   k                         11       rrrrrrrrrr                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk        cccccc                                                                                                 0",
+"0                                                              r   k                         11       rrrrrrrrrr                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk        cccccc                                                                                                 0",
 "0                              1      11      1        11rrr   k   k11                  1rrrrrrrrrr   kkkkkkkkkk                         kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk                             r111                                                                               0",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
 "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
@@ -209,25 +209,6 @@ public:
 	}
 
 
-	void Collision()
-	{
-
-		for (int i = rect.top / 16; i < (rect.top + rect.height) / 16; i++)
-			for (int j = rect.left / 16; j < (rect.left + rect.width) / 16; j++)
-				if ((TileMap[i][j] == 'P') || (TileMap[i][j] == '0'))
-				{
-					if (dx > 0)
-					{
-						rect.left = j * 16 - rect.width; dx *= -1;
-					}
-					else if (dx < 0)
-					{
-						rect.left = j * 16 + 16;  dx *= -1;
-					}
-
-				}
-	}
-
 };
 
 class ENEMY_WALL
@@ -255,25 +236,6 @@ public:
 
 	}
 
-
-	void Collision()
-	{
-
-		for (int i = rect.top / 16; i < (rect.top + rect.height) / 16; i++)
-			for (int j = rect.left / 16; j < (rect.left + rect.width) / 16; j++)
-				if ((TileMap[i][j] == 'P') || (TileMap[i][j] == '0'))
-				{
-					if (dx > 0)
-					{
-						rect.left = j * 16 - rect.width; dx *= -1;
-					}
-					else if (dx < 0)
-					{
-						rect.left = j * 16 + 16;  dx *= -1;
-					}
-
-				}
-	}
 
 };
 
@@ -303,25 +265,6 @@ public:
 	}
 
 
-	void Collision()
-	{
-
-		for (int i = rect.top / 16; i < (rect.top + rect.height) / 16; i++)
-			for (int j = rect.left / 16; j < (rect.left + rect.width) / 16; j++)
-				if ((TileMap[i][j] == 'P') || (TileMap[i][j] == '0'))
-				{
-					if (dx > 0)
-					{
-						rect.left = j * 16 - rect.width; dx *= -1;
-					}
-					else if (dx < 0)
-					{
-						rect.left = j * 16 + 16;  dx *= -1;
-					}
-
-				}
-	}
-
 };
 
 class ENEMY_WALL8
@@ -349,26 +292,58 @@ public:
 
 	}
 
+};
+class Jump_boost
+{
 
-	void Collision()
+public:
+	float dx, dy;
+	FloatRect rect;
+	Sprite sprite;
+	float currentFrame;
+
+
+	void set(Texture& image, int x, int y)
 	{
 
-		for (int i = rect.top / 16; i < (rect.top + rect.height) / 16; i++)
-			for (int j = rect.left / 16; j < (rect.left + rect.width) / 16; j++)
-				if ((TileMap[i][j] == 'P') || (TileMap[i][j] == '0'))
-				{
-					if (dx > 0)
-					{
-						rect.left = j * 16 - rect.width; dx *= -1;
-					}
-					else if (dx < 0)
-					{
-						rect.left = j * 16 + 16;  dx *= -1;
-					}
+		sprite.setTexture(image);
+		rect = FloatRect(x, y, 16, 8);
 
-				}
+		dx = 0.05;
+		currentFrame = 0;
 	}
 
+	void update(float time)
+	{
+		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
+
+	}
+};
+class Portal
+{
+
+public:
+	float dx, dy;
+	FloatRect rect;
+	Sprite sprite;
+	float currentFrame;
+
+
+	void set(Texture& image, int x, int y)
+	{
+
+		sprite.setTexture(image);
+		rect = FloatRect(x, y, 4, 16*15);
+
+		dx = 0.05;
+		currentFrame = 0;
+	}
+
+	void update(float time)
+	{
+		sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
+
+	}
 };
 int main()
 {
@@ -392,6 +367,9 @@ int main()
 	Texture Spike;
 	Spike.loadFromFile("spike.png");
 
+	Texture Jump;
+	Jump.loadFromFile("jump.png");
+
 	Texture Cube;
 	Cube.loadFromFile("CubeJ.png");
 
@@ -412,6 +390,13 @@ int main()
 	background.setColor(Color::Cyan);
 
 	PLAYER Mario(Cube);
+
+	vector<Jump_boost> J1(1);
+	for (int i = 0, k = 67; i < J1.size(); i++)
+	{
+		J1[i].set(Jump, k * 16, 12.5 * 16);
+		k--;
+	}
 	vector<ENEMY> EN(1);
 	for (int i = 0, k = 30; i < EN.size(); i++)
 	{
@@ -510,47 +495,47 @@ int main()
 		k--;
 	}
 	vector<ENEMY> EN16(1);
-	for (int i = 0, k = 184; i < EN16.size(); i++)
+	/*for (int i = 0, k = 184; i < EN16.size(); i++)
 	{
 		EN16[i].set(Spike, k * 16, 11 * 16);
 		k--;
-	}
+	}*/
 	vector<ENEMY> EN17(1);
-	for (int i = 0, k = 185; i < EN17.size(); i++)
+	/*for (int i = 0, k = 185; i < EN17.size(); i++)
 	{
 		EN17[i].set(Spike, k * 16, 12 * 16);
 		k--;
-	}
+	}*/
 	vector<ENEMY> EN18(1);
-	for (int i = 0, k = 194; i < EN18.size(); i++)
+	/*for (int i = 0, k = 194; i < EN18.size(); i++)
 	{
 		EN18[i].set(Spike, k * 16, 12 * 16);
 		k--;
-	}
+	}*/
 	vector<ENEMY> EN19(1);
-	for (int i = 0, k = 201; i < EN19.size(); i++)
+	/*for (int i = 0, k = 201; i < EN19.size(); i++)
 	{
 		EN19[i].set(Spike, k * 16, 13 * 16);
 		k--;
-	}
+	}*/
 	vector<ENEMY> EN20(1);
-	for (int i = 0, k = 216; i < EN20.size(); i++)
+	/*for (int i = 0, k = 216; i < EN20.size(); i++)
 	{
 		EN20[i].set(Spike, k * 16, 9 * 16);
 		k--;
-	}
+	}*/
 	vector<ENEMY_SP> EN21(29);
-	for (int i = 0, k = 215; i < EN21.size(); i++)
+	/*for (int i = 0, k = 215; i < EN21.size(); i++)
 	{
 		EN21[i].set(Small_spike, k * 16, 15.5 * 16);
 		k--;
-	}
+	}*/
 	vector<ENEMY> EN22(3);
-	for (int i = 0, k = 219; i < EN22.size(); i++)
+	/*for (int i = 0, k = 219; i < EN22.size(); i++)
 	{
 		EN22[i].set(Spike, k * 16, 15 * 16);
 		k--;
-	}
+	}*/
 	vector<ENEMY_WALL> Wall(1);
 	//Wall[0].set(671, 15 * 16);
 
@@ -567,7 +552,7 @@ int main()
 	{
 		/*cout << cl.getElapsedTime().asSeconds() << endl;*/
 
-		if (cl.getElapsedTime().asSeconds() <= 11.3 && cl.getElapsedTime().asSeconds() >= 11.266)
+		if (cl.getElapsedTime().asSeconds() <= 12 && cl.getElapsedTime().asSeconds() >= 11.684)
 		{
 			background.setColor(Color::Magenta);
 			tile.setColor(Color::Magenta);
@@ -597,6 +582,10 @@ int main()
 		{
 			
 			Mario.update2(time);
+		}
+		for (int i = 0; i < J1.size(); i++)
+		{
+			J1[i].update(time);
 		}
 		for (int i = 0; i < EN.size(); i++)
 		{
@@ -693,6 +682,13 @@ int main()
 		for (int i = 0; i < Wall.size(); i++)
 		{
 			Wall[i].update(time);
+		}
+		for (int i = 0; i < J1.size(); i++)
+		{
+			if (Mario.rect.intersects(J1[i].rect))
+			{
+				Mario.dy = -0.27;
+			}
 		}
 		for (int i = 0; i < Wall.size(); i++)
 		{
@@ -960,6 +956,10 @@ int main()
 		for (int i = 0; i < Wall.size(); i++)
 		{
 			window.draw(Wall[i].sprite);
+		}
+		for (int i = 0; i < J1.size(); i++)
+		{
+			window.draw(J1[i].sprite);
 		}
 		window.display();
 	}
